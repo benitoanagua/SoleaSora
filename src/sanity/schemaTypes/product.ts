@@ -1,5 +1,3 @@
-// src/sanity/schemaTypes/product.ts
-
 import { defineType, defineField, defineArrayMember } from "sanity";
 
 export default defineType({

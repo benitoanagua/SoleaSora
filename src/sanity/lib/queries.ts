@@ -1,4 +1,3 @@
-// src/sanity/lib/queries.ts
 // Todas las queries GROQ del proyecto
 
 export const QUERIES = {

@@ -1,5 +1,3 @@
-// src/sanity/schemaTypes/siteSettings.ts
-
 import { defineType, defineField } from "sanity";
 
 export default defineType({
