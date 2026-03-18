@@ -141,7 +141,7 @@ export default defineType({
       title: "ID de Stripe",
       type: "string",
       description: "No editar manualmente. Se sincroniza automáticamente.",
-      readOnly: true,
+      hidden: true,
     }),
 
     // ─────────────────────────────────────────

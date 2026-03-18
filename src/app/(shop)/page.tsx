@@ -1,17 +1,20 @@
-export default function HomePage() {
+import { sanityFetch } from "@/sanity/lib/live";
+import { QUERIES } from "@/sanity/lib/queries";
+import HomeHero from "@/components/home/HomeHero";
+import HomeFeatured from "@/components/home/HomeFeatured";
+import HomeManifesto from "@/components/home/HomeManifesto";
+import type { ProductCard } from "@/types";
+
+export default async function HomePage() {
+  const { data: featured } = await sanityFetch({
+    query: QUERIES.FEATURED_PRODUCTS,
+  });
+
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center space-y-4">
-        <h1
-          className="text-6xl font-light tracking-wide"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
-          Solea Sora
-        </h1>
-        <p className="text-lg text-[var(--color-muted)] font-light">
-          Skincare sensorial — proximamente
-        </p>
-      </div>
-    </div>
+    <main>
+      <HomeHero />
+      <HomeFeatured products={featured as ProductCard[]} />
+      <HomeManifesto />
+    </main>
   );
 }

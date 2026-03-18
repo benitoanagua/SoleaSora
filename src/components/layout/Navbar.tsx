@@ -5,20 +5,20 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useCart } from "@/hooks/useCart";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const { openCart, count } = useCart();
 
-  // Fondo del nav aparece al scrollear
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Cerrar menu con Escape
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMenuOpen(false);
@@ -27,7 +27,6 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // Bloquear scroll del body cuando el menu está abierto
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
@@ -73,14 +72,16 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             {/* Carrito */}
             <button
+              onClick={openCart}
               aria-label="Abrir carrito"
               className="relative p-2 hover:opacity-60 transition-opacity"
             >
               <ShoppingBag size={20} strokeWidth={1.5} />
-              {/* Badge cantidad — lo conectamos al store después */}
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#C9A96E] text-[#FAF8F5] text-[10px] rounded-full flex items-center justify-center font-medium">
-                0
-              </span>
+              {count > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#C9A96E] text-[#FAF8F5] text-[10px] rounded-full flex items-center justify-center font-medium">
+                  {count}
+                </span>
+              )}
             </button>
 
             {/* Hamburger mobile */}
@@ -118,7 +119,8 @@ export default function Navbar() {
         {/* Panel */}
         <nav
           className={cn(
-            "absolute top-0 right-0 h-full w-72 bg-[#FAF8F5] flex flex-col pt-24 px-8 gap-8",
+            "absolute top-0 right-0 h-full w-72 bg-[#FAF8F5]",
+            "flex flex-col pt-24 px-8 gap-8",
             "transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]",
             menuOpen ? "translate-x-0" : "translate-x-full",
           )}
