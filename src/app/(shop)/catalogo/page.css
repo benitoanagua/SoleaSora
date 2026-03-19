@@ -54,7 +54,7 @@
   font-size: 2.25rem;
   font-weight: 300;
   line-height: 1.1;
-  color: #1a1a1a;
+  color: var(--color-on-background);
   font-family: var(--font-display);
   margin-bottom: 1.5rem;
 }
@@ -186,13 +186,13 @@
 .catalog-page__empty-title {
   font-size: 1.5rem;
   font-weight: 300;
-  color: #1a1a1a;
+  color: var(--color-on-background);
   font-family: var(--font-display);
   margin-bottom: 0.5rem;
 }
 
 .catalog-page__empty-description {
-  color: var(--color-taupe);
+  color: var(--color-secondary);
   max-width: 20rem;
   margin-bottom: 1.5rem;
 }
@@ -201,8 +201,8 @@
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #1a1814;
-  border-bottom: 1px solid #1a1814;
+  color: var(--color-on-background);
+  border-bottom: 1px solid var(--color-on-background);
   padding-bottom: 0.125rem;
   background: none;
   border: none;
@@ -211,6 +211,6 @@
 }
 
 .catalog-page__empty-btn:hover {
-  color: var(--color-gold);
-  border-color: var(--color-gold);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
 }

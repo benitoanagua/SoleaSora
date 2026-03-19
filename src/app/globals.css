@@ -5,33 +5,142 @@
 
 :root {
   /* ============================================
-     PALETA DE COLOR - Tonos naturales y lumínicos
+     LIGHT THEME (Default) - Tonos naturales y lumínicos
      ============================================ */
   
-  /* Base / Fondo */
-  --color-cream: #faf8f5;          /* Crema cálido - fondo principal */
-  --color-sand: #ede8df;           /* Arena clara - fondos secundarios */
-  --color-white-broken: #fdfcfb;   /* Blanco roto - cards y contenedores */
+  /* Primary Brand Colors */
+  --color-primary: #c9a96e;          /* Dorado mate - color principal */
+  --color-on-primary: #ffffff;       /* Texto sobre primary */
+  --color-primary-container: #f5f2ed; /* Fondo primario suave */
+  --color-on-primary-container: #1a1814; /* Texto sobre primary container */
   
-  /* Texto */
-  --color-dark: #1a1a1a;           /* Casi negro - texto principal */
-  --color-brown-deep: #2d2a26;     /* Marrón oscuro profundo */
-  --color-muted: #6b6560;          /* Texto secundario */
+  /* Secondary Colors */
+  --color-secondary: #6b6560;        /* Taupe - secundario */
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #ede8df; /* Arena clara */
+  --color-on-secondary-container: #1a1814;
   
-  /* Acentos */
-  --color-gold: #c9a96e;           /* Dorado mate - botones y detalles de lujo */
-  --color-gold-hover: #b89560;     /* Dorado hover state */
-  --color-bronze: #8b6914;         /* Bronce - acento secundario */
+  /* Tertiary Colors */
+  --color-tertiary: #8b6914;         /* Bronce - acento */
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #f5f2ed;
+  --color-on-tertiary-container: #1a1814;
   
-  /* Feedback */
-  --color-error: #d97b6b;          /* Rojo suave - errores */
-  --color-error-bg: #f9eae8;       /* Fondo error */
-  --color-success: #6b8b6b;        /* Verde suave - éxitos */
-  --color-success-bg: #e8f0e8;     /* Fondo éxito */
+  /* Feedback Colors */
+  --color-error: #d97b6b;
+  --color-on-error: #ffffff;
+  --color-error-container: #f9eae8;
+  --color-on-error-container: #410002;
   
+  /* Surface & Background */
+  --color-background: #faf8f5;       /* Crema cálido - fondo principal */
+  --color-on-background: #1a1814;    /* Texto principal */
+  --color-surface: #faf8f5;
+  --color-surface-dim: #e9e5e1;
+  --color-surface-bright: #faf8f5;
+  --color-surface-container-lowest: #f5f2ed;
+  --color-surface-container-low: #f4f1ec;
+  --color-surface-container: #eeebe7;
+  --color-surface-container-high: #e9e5e1;
+  --color-surface-container-highest: #e3dfdb;
+  --color-on-surface: #1a1814;
+  --color-surface-variant: #ede8df;
+  --color-on-surface-variant: #6b6560;
+  
+  /* Border & Outline */
+  --color-outline: #d4cfc7;
+  --color-outline-variant: #ede8df;
+  
+  /* Special Colors */
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-scrim: rgba(0, 0, 0, 0.32);
+  --color-inverse-surface: #1a1814;
+  --color-inverse-on-surface: #faf8f5;
+  --color-inverse-primary: #d4b978;
+  
+  /* Legacy Color Names (for backward compatibility) */
+  --color-cream: var(--color-background);
+  --color-sand: var(--color-surface-container);
+  --color-white-broken: var(--color-surface-bright);
+  --color-dark: var(--color-on-background);
+  --color-brown-deep: #2d2a26;
+  --color-muted: var(--color-secondary);
+  --color-gold: var(--color-primary);
+  --color-gold-hover: var(--color-primary-container);
+  --color-bronze: var(--color-tertiary);
+}
+
+[data-theme='dark'] {
   /* ============================================
-     TIPOGRAFÍAS
+     DARK THEME - Experiencia nocturna elegante
      ============================================ */
+  
+  /* Primary Brand Colors */
+  --color-primary: #d4b978;          /* Dorado más claro para dark mode */
+  --color-on-primary: #1a1814;       /* Texto oscuro sobre primary */
+  --color-primary-container: #3d3426; /* Fondo primario oscuro */
+  --color-on-primary-container: #f5f2ed;
+  
+  /* Secondary Colors */
+  --color-secondary: #a8a098;        /* Taupe claro */
+  --color-on-secondary: #1a1814;
+  --color-secondary-container: #2d2a26; /* Marrón oscuro */
+  --color-on-secondary-container: #f5f2ed;
+  
+  /* Tertiary Colors */
+  --color-tertiary: #c9a96e;         /* Dorado brillante */
+  --color-on-tertiary: #1a1814;
+  --color-tertiary-container: #3d3426;
+  --color-on-tertiary-container: #f5f2ed;
+  
+  /* Feedback Colors */
+  --color-error: #ffb4ab;
+  --color-on-error: #410002;
+  --color-error-container: #5c0005;
+  --color-on-error-container: #ffdad6;
+  
+  /* Surface & Background */
+  --color-background: #0f0d0c;       /* Casi negro */
+  --color-on-background: #f5f2ed;    /* Texto claro */
+  --color-surface: #0f0d0c;
+  --color-surface-dim: #0f0d0c;
+  --color-surface-bright: #2d2a26;
+  --color-surface-container-lowest: #0a0908;
+  --color-surface-container-low: #1a1814;
+  --color-surface-container: #1e1c18;
+  --color-surface-container-high: #25231f;
+  --color-surface-container-highest: #2d2a26;
+  --color-on-surface: #f5f2ed;
+  --color-surface-variant: #2d2a26;
+  --color-on-surface-variant: #a8a098;
+  
+  /* Border & Outline */
+  --color-outline: #6b6560;
+  --color-outline-variant: #2d2a26;
+  
+  /* Special Colors */
+  --color-shadow: rgba(0, 0, 0, 0.3);
+  --color-scrim: rgba(0, 0, 0, 0.5);
+  --color-inverse-surface: #f5f2ed;
+  --color-inverse-on-surface: #2d2a26;
+  --color-inverse-primary: #c9a96e;
+  
+  /* Legacy Color Names (for backward compatibility) */
+  --color-cream: var(--color-background);
+  --color-sand: var(--color-surface-container);
+  --color-white-broken: var(--color-surface-bright);
+  --color-dark: var(--color-on-background);
+  --color-brown-deep: #3d3a36;
+  --color-muted: var(--color-secondary);
+  --color-gold: var(--color-primary);
+  --color-gold-hover: #e0c98a;
+  --color-bronze: var(--color-tertiary);
+}
+
+/* ============================================
+   TIPOGRAFÍAS
+   ============================================ */
+:root {
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'DM Sans', sans-serif;
   

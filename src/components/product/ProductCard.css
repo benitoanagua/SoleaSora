@@ -76,23 +76,25 @@
 }
 
 .product-card__badge {
-  background-color: rgba(26, 24, 20, 0.9);
+  background-color: var(--color-inverse-surface);
   backdrop-filter: blur(4px);
-  color: var(--color-cream);
+  color: var(--color-inverse-on-surface);
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   padding: 4px 10px;
   border-radius: var(--radius-sm);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px var(--color-shadow);
 }
 
 .product-card__badge--sale {
-  background-color: rgba(201, 169, 110, 0.9);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 .product-card__badge--out {
-  background-color: rgba(107, 101, 96, 0.9);
+  background-color: var(--color-secondary);
+  color: var(--color-on-secondary);
 }
 
 /* Quick Add Button */
@@ -105,9 +107,9 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: rgba(250, 248, 245, 0.95);
+  background-color: var(--color-surface-bright);
   backdrop-filter: blur(4px);
-  color: var(--color-dark);
+  color: var(--color-on-background);
   font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -129,13 +131,13 @@
 }
 
 .product-card__add-btn:hover {
-  background-color: var(--color-dark);
-  color: var(--color-cream);
+  background-color: var(--color-inverse-surface);
+  color: var(--color-inverse-on-surface);
 }
 
 .product-card__add-btn--adding {
-  background-color: var(--color-dark);
-  color: var(--color-cream);
+  background-color: var(--color-inverse-surface);
+  color: var(--color-inverse-on-surface);
 }
 
 .product-card__add-btn--touch {
@@ -151,8 +153,8 @@
 .product-card__spinner {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(250, 248, 245, 0.3);
-  border-top-color: var(--color-cream);
+  border: 2px solid var(--color-outline);
+  border-top-color: var(--color-primary);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -161,7 +163,7 @@
 .product-card__overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(26, 24, 20, 0.05);
+  background-color: var(--color-surface-container-low);
   transition: opacity 0.15s ease;
   opacity: 0;
   pointer-events: none;

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -70,6 +71,9 @@ export default function Navbar() {
 
           {/* Acciones derecha */}
           <div className="navbar__actions">
+            {/* Theme Toggle */}
+            <ThemeToggle />
+            
             {/* Icono Shop */}
             <Link
               href="/catalogo"
