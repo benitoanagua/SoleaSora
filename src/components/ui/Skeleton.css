@@ -1,0 +1,267 @@
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-sand) 0%,
+    var(--color-cream-light) 50%,
+    var(--color-sand) 100%
+  );
+  background-size: 200% 100%;
+}
+
+.skeleton--rect {
+  border-radius: 0.125rem;
+}
+
+.skeleton--rounded {
+  border-radius: 0.5rem;
+}
+
+.skeleton--circle {
+  border-radius: 50%;
+}
+
+.skeleton--pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.skeleton--wave {
+  animation: shimmer 1.8s infinite linear;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Product Card Skeleton */
+.product-card-skeleton {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-card-skeleton > * + * {
+  margin-top: 1rem;
+}
+
+.product-card-skeleton__image {
+  aspect-ratio: 3 / 4;
+  width: 100%;
+}
+
+.product-card-skeleton__category {
+  width: 4rem;
+  height: 0.75rem;
+}
+
+.product-card-skeleton__title {
+  width: 75%;
+  height: 1.25rem;
+}
+
+.product-card-skeleton__description {
+  width: 100%;
+  height: 0.75rem;
+}
+
+.product-card-skeleton__description-short {
+  width: 66%;
+  height: 0.75rem;
+}
+
+.product-card-skeleton__price {
+  width: 6rem;
+  height: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+/* Product Grid Skeleton */
+.product-grid-skeleton {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem 2rem;
+}
+
+@media (min-width: 640px) {
+  .product-grid-skeleton {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-grid-skeleton {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Product Page Skeleton */
+.product-page-skeleton {
+  min-height: 100vh;
+  padding-top: 5rem;
+}
+
+.product-page-skeleton__container {
+  max-width: 82.5rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.product-page-skeleton__grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .product-page-skeleton__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.product-page-skeleton__images {
+  margin-bottom: 1rem;
+}
+
+.product-page-skeleton__images > * + * {
+  margin-top: 1rem;
+}
+
+.product-page-skeleton__main-image {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+}
+
+.product-page-skeleton__thumbnails {
+  display: flex;
+  gap: 1rem;
+}
+
+.product-page-skeleton__thumbnail {
+  width: 5rem;
+  height: 5rem;
+}
+
+.product-page-skeleton__info {
+  padding: 3rem 0;
+}
+
+.product-page-skeleton__info > * + * {
+  margin-top: 1.5rem;
+}
+
+.product-page-skeleton__breadcrumb {
+  width: 8rem;
+  height: 1rem;
+}
+
+.product-page-skeleton__category {
+  width: 6rem;
+  height: 0.75rem;
+}
+
+.product-page-skeleton__title {
+  width: 75%;
+  height: 3rem;
+}
+
+.product-page-skeleton__tagline {
+  width: 50%;
+  height: 1.5rem;
+}
+
+.product-page-skeleton__description {
+  width: 100%;
+  height: 1rem;
+}
+
+.product-page-skeleton__description-short {
+  width: 83%;
+  height: 1rem;
+}
+
+.product-page-skeleton__price {
+  width: 8rem;
+  height: 2.5rem;
+}
+
+.product-page-skeleton__cta {
+  width: 100%;
+  height: 3.5rem;
+}
+
+.product-page-skeleton__skin-types {
+  display: flex;
+  gap: 0.5rem;
+  padding-top: 1rem;
+}
+
+.product-page-skeleton__skin-type-tag {
+  width: 6rem;
+  height: 2rem;
+}
+
+/* Cart Skeleton */
+.cart-skeleton {
+  margin-bottom: 1.5rem;
+}
+
+.cart-skeleton > * + * {
+  margin-top: 1.5rem;
+}
+
+.cart-skeleton__item {
+  display: flex;
+  gap: 1rem;
+}
+
+.cart-skeleton__image {
+  width: 6rem;
+  height: 6rem;
+}
+
+.cart-skeleton__info {
+  flex: 1;
+}
+
+.cart-skeleton__info > * + * {
+  margin-top: 0.75rem;
+}
+
+.cart-skeleton__title {
+  width: 75%;
+  height: 1rem;
+}
+
+.cart-skeleton__subtitle {
+  width: 50%;
+  height: 0.75rem;
+}
+
+.cart-skeleton__controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-skeleton__quantity {
+  width: 6rem;
+  height: 2rem;
+}
+
+.cart-skeleton__price {
+  width: 5rem;
+  height: 1rem;
+}

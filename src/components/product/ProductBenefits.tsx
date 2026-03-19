@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Benefit } from "@/types";
+import "./ProductBenefits.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,14 +41,12 @@ export default function ProductBenefits({ benefits }: Props) {
   if (!benefits.length) return null;
 
   return (
-    <section className="py-24 px-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-16 space-y-3 text-center">
-          <p className="text-xs tracking-widest uppercase text-[#6B6560]">
-            Resultados
-          </p>
+    <section className="product-benefits">
+      <div className="container product-benefits__container">
+        <div className="product-benefits__header">
+          <p className="product-benefits__tagline">Resultados</p>
           <h2
-            className="text-4xl md:text-5xl font-light"
+            className="product-benefits__title"
             style={{ fontFamily: "var(--font-display)" }}
           >
             Lo que dice nuestra comunidad
@@ -56,20 +55,20 @@ export default function ProductBenefits({ benefits }: Props) {
 
         <div
           ref={ref}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1"
+          className="product-benefits__grid"
         >
           {benefits.map((benefit, i) => (
             <div
               key={i}
-              className="benefit-card bg-[#EDE8DF] p-12 flex flex-col items-center text-center space-y-3"
+              className="benefit-card product-benefits__card"
             >
               <span
-                className="text-5xl md:text-6xl font-light text-[#C9A96E]"
+                className="product-benefits__stat"
                 style={{ fontFamily: "var(--font-display)" }}
               >
                 {benefit.stat}
               </span>
-              <p className="text-sm text-[#6B6560] leading-relaxed max-w-[20ch]">
+              <p className="product-benefits__label">
                 {benefit.label}
               </p>
             </div>

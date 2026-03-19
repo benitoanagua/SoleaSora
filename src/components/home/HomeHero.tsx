@@ -4,65 +4,92 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import "./HomeHero.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function HomeHero() {
+interface Props {
+  title?: string;
+  subtitle?: string;
+  backgroundImage?: string;
+  videoUrl?: string;
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+export default function HomeHero({
+  title = "Solea Sora",
+  subtitle = "La luz en tu piel.\nEl cielo en cada gota.",
+  backgroundImage,
+  videoUrl,
+  ctaText = "Ver productos",
+  ctaLink = "/catalogo",
+}: Props) {
   const containerRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Timeline de entrada
-      const tl = gsap.timeline({ delay: 0.2 });
+      const tl = gsap.timeline({ delay: 0.3 });
 
       tl.from(lineRef.current, {
         scaleX: 0,
         transformOrigin: "left center",
-        duration: 1,
+        duration: 1.2,
         ease: "power3.out",
       })
         .from(
           titleRef.current,
           {
             opacity: 0,
-            y: 60,
-            duration: 1,
+            y: 80,
+            duration: 1.2,
             ease: "power3.out",
           },
-          "-=0.6",
+          "-=0.8"
         )
         .from(
           subRef.current,
+          {
+            opacity: 0,
+            y: 30,
+            duration: 1,
+            ease: "power2.out",
+          },
+          "-=0.6"
+        )
+        .from(
+          ctaRef.current,
           {
             opacity: 0,
             y: 20,
             duration: 0.8,
             ease: "power2.out",
           },
-          "-=0.5",
+          "-=0.5"
         )
         .from(
-          ctaRef.current,
+          scrollIndicatorRef.current,
           {
             opacity: 0,
-            y: 16,
-            duration: 0.7,
+            y: 10,
+            duration: 0.6,
             ease: "power2.out",
           },
-          "-=0.4",
+          "-=0.3"
         );
 
-      // Parallax del fondo al scrollear
       if (bgRef.current) {
         gsap.to(bgRef.current, {
-          yPercent: 30,
+          yPercent: 25,
           ease: "none",
           scrollTrigger: {
             trigger: containerRef.current,
@@ -72,6 +99,16 @@ export default function HomeHero() {
           },
         });
       }
+
+      gsap.to(containerRef.current, {
+        opacity: 0.95,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
     }, containerRef);
 
     return () => ctx.revert();
@@ -80,62 +117,97 @@ export default function HomeHero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#FAF8F5]"
+      className="home-hero"
+      aria-label="Hero section"
     >
-      {/* Fondo con parallax */}
+      {/* Fondo con gradiente radial */}
       <div
         ref={bgRef}
-        className="absolute inset-0 -top-[20%]"
+        className="home-hero__bg"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 50% 40%, #EDE8DF 0%, transparent 70%)",
+            "radial-gradient(ellipse 70% 50% at 50% 40%, #EDE8DF 0%, transparent 70%)",
         }}
+        aria-hidden="true"
       />
+
+      {/* Video de fondo (opcional) */}
+      {videoUrl && (
+        <div className="home-hero__video-container">
+          <video
+            ref={videoRef}
+            src={videoUrl}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="home-hero__video"
+          />
+        </div>
+      )}
+
+      {/* Imagen de fondo alternativa */}
+      {backgroundImage && !videoUrl && (
+        <div
+          className="home-hero__image-bg"
+          style={{
+            backgroundImage: `url(${backgroundImage})`,
+          }}
+          aria-hidden="true"
+        />
+      )}
 
       {/* Línea decorativa horizontal */}
       <div
         ref={lineRef}
-        className="absolute top-1/3 left-0 w-1/3 h-px bg-[#C9A96E]/40"
+        className="home-hero__line"
       />
 
-      {/* Contenido */}
-      <div className="relative z-10 text-center px-6 space-y-8 max-w-4xl mx-auto">
-        <p className="text-xs tracking-[0.4em] uppercase text-[#6B6560]">
+      {/* Contenido centrado */}
+      <div className="home-hero__content">
+        {/* Tagline superior */}
+        <p className="home-hero__tagline">
           Skincare sensorial
         </p>
 
+        {/* Título principal */}
         <h1
           ref={titleRef}
-          className="text-7xl sm:text-8xl md:text-[10rem] font-light leading-none tracking-tight"
+          className="home-hero__title"
           style={{ fontFamily: "var(--font-display)" }}
         >
-          Solea
-          <br />
-          <em className="not-italic text-[#C9A96E]">Sora</em>
+          <span className="home-hero__title-line">{title.split(" ")[0]}</span>
+          <span className="home-hero__title-accent">
+            {title.split(" ")[1] || "Sora"}
+          </span>
         </h1>
 
+        {/* Subtítulo narrativo */}
         <p
           ref={subRef}
-          className="text-lg md:text-xl text-[#6B6560] font-light max-w-sm mx-auto leading-relaxed"
+          className="home-hero__subtitle"
         >
-          La luz en tu piel.
-          <br />
-          El cielo en cada gota.
+          {subtitle}
         </p>
 
+        {/* CTAs */}
         <div
           ref={ctaRef}
-          className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4"
+          className="home-hero__ctas"
         >
+          {/* CTA Primario */}
           <Link
-            href="/catalogo"
-            className="bg-[#1A1814] text-[#FAF8F5] text-sm tracking-widest uppercase px-10 py-4 hover:bg-[#C9A96E] transition-colors duration-300"
+            href={ctaLink}
+            className="home-hero__btn home-hero__btn--primary"
           >
-            Ver productos
+            <span className="home-hero__btn-text">{ctaText}</span>
+            <span className="home-hero__btn-overlay" />
           </Link>
+
+          {/* CTA Secundario (Ghost) */}
           <Link
             href="/nosotras"
-            className="text-sm tracking-widest uppercase text-[#6B6560] border-b border-[#6B6560]/40 pb-0.5 hover:text-[#1A1814] hover:border-[#1A1814] transition-colors duration-300"
+            className="home-hero__btn home-hero__btn--ghost"
           >
             Nuestra historia
           </Link>
@@ -143,11 +215,15 @@ export default function HomeHero() {
       </div>
 
       {/* Indicador de scroll */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-        <div className="w-px h-8 bg-[#C9A96E]/50" />
-        <p className="text-[10px] tracking-[0.3em] uppercase text-[#6B6560]">
-          scroll
-        </p>
+      <div
+        ref={scrollIndicatorRef}
+        className="home-hero__scroll-indicator"
+      >
+        {/* Línea animada */}
+        <div className="home-hero__scroll-line">
+          <div className="home-hero__scroll-line-fill" />
+        </div>
+        <p className="home-hero__scroll-text">scroll</p>
       </div>
     </section>
   );

@@ -1,20 +1,73 @@
-@import "tailwindcss";
+/* ============================================
+   SOLEA SORA - Design System & Global Styles
+   Experiencia visual inmersiva y "Mobile First"
+   ============================================ */
 
 :root {
-  /* Colores Solea Sora */
-  --color-cream: #faf8f5;
-  --color-sand: #ede8df;
-  --color-gold: #c9a96e;
-  --color-bronze: #8b6914;
-  --color-dark: #1a1814;
-  --color-muted: #6b6560;
-
-  /* Tipografías */
-  --font-display: var(--font-display);
-  --font-sans: var(--font-sans);
+  /* ============================================
+     PALETA DE COLOR - Tonos naturales y lumínicos
+     ============================================ */
+  
+  /* Base / Fondo */
+  --color-cream: #faf8f5;          /* Crema cálido - fondo principal */
+  --color-sand: #ede8df;           /* Arena clara - fondos secundarios */
+  --color-white-broken: #fdfcfb;   /* Blanco roto - cards y contenedores */
+  
+  /* Texto */
+  --color-dark: #1a1a1a;           /* Casi negro - texto principal */
+  --color-brown-deep: #2d2a26;     /* Marrón oscuro profundo */
+  --color-muted: #6b6560;          /* Texto secundario */
+  
+  /* Acentos */
+  --color-gold: #c9a96e;           /* Dorado mate - botones y detalles de lujo */
+  --color-gold-hover: #b89560;     /* Dorado hover state */
+  --color-bronze: #8b6914;         /* Bronce - acento secundario */
+  
+  /* Feedback */
+  --color-error: #d97b6b;          /* Rojo suave - errores */
+  --color-error-bg: #f9eae8;       /* Fondo error */
+  --color-success: #6b8b6b;        /* Verde suave - éxitos */
+  --color-success-bg: #e8f0e8;     /* Fondo éxito */
+  
+  /* ============================================
+     TIPOGRAFÍAS
+     ============================================ */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'DM Sans', sans-serif;
+  
+  /* ============================================
+     LAYOUT
+     ============================================ */
+  --max-width: 1320px;
+  --padding-mobile: 20px;
+  --padding-tablet: 40px;
+  --padding-desktop: 80px;
+  
+  /* ============================================
+     BORDER RADIUS
+     ============================================ */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  
+  /* ============================================
+     ANIMACIONES
+     ============================================ */
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 600ms;
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-* {
+/* ============================================
+   RESET & BASE
+   ============================================ */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -22,6 +75,8 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -29,32 +84,360 @@ body {
   background-color: var(--color-cream);
   color: var(--color-dark);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
-/* Tipografía display para h1, h2, h3 */
-h1,
-h2,
-h3 {
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ============================================
+   TIPOGRAFÍA
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display), Georgia, serif;
   font-weight: 400;
   line-height: 1.15;
   letter-spacing: -0.01em;
+  color: var(--color-dark);
 }
 
-/* Scrollbar sutil */
+h1 { font-size: clamp(2.5rem, 8vw, 6.25rem); }
+h2 { font-size: clamp(2rem, 6vw, 3.75rem); }
+h3 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+
+p {
+  margin-bottom: 1rem;
+}
+
+strong {
+  font-weight: 500;
+}
+
+/* ============================================
+   MICROINTERACCIONES - Botones e Interacción
+   ============================================ */
+
+button:not(:disabled),
+a:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+button:active:not(:disabled),
+a:active:not([aria-disabled="true"]) {
+  transform: scale(0.98);
+}
+
+a:hover {
+  transition: color var(--duration-normal) ease;
+}
+
+/* ============================================
+   ANIMACIONES KEYFRAMES
+   ============================================ */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-5%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+@keyframes slide-down {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+/* ============================================
+   SCROLLBAR PERSONALIZADA
+   ============================================ */
+
 ::-webkit-scrollbar {
   width: 4px;
+  height: 4px;
 }
+
 ::-webkit-scrollbar-track {
-  background: var(--color-cream);
+  background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-sand);
   border-radius: 2px;
+  transition: background var(--duration-normal) ease;
 }
 
-/* Selección de texto */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-sand) transparent;
+}
+
+/* ============================================
+   SELECCIÓN DE TEXTO
+   ============================================ */
+
 ::selection {
   background: var(--color-gold);
   color: var(--color-cream);
+}
+
+::-moz-selection {
+  background: var(--color-gold);
+  color: var(--color-cream);
+}
+
+/* ============================================
+   FOCUS STATES - Accesibilidad
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ============================================
+   REDUCED MOTION - Accesibilidad
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   LAYOUT & CONTAINER
+   ============================================ */
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+
+/* ============================================
+   COMPONENT SPECIFIC STYLES
+   ============================================ */
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: all var(--duration-slow) var(--ease-out);
+}
+
+.navbar-transparent {
+  background: transparent;
+}
+
+.navbar-scrolled {
+  background: rgba(250, 248, 245, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(237, 232, 223, 0.5);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Product Card */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.product-card:hover {
+  transform: scale(1.02);
+}
+
+.product-card__image-wrapper {
+  position: relative;
+  aspect-ratio: 3/4;
+  background-color: var(--color-sand);
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
+.product-card__image {
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out), opacity var(--duration-normal) ease;
+}
+
+.product-card:hover .product-card__image {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: all var(--duration-normal) ease;
+  border: none;
+  border-radius: var(--radius-sm);
+}
+
+.btn-primary {
+  background-color: var(--color-dark);
+  color: var(--color-cream);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-brown-deep);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-muted);
+  border-bottom: 1px solid var(--color-muted);
+  border-radius: 0;
+  padding-bottom: 0.125rem;
+}
+
+.btn-ghost:hover {
+  color: var(--color-dark);
+  border-color: var(--color-dark);
+}
+
+/* Skeleton Loading */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-sand) 0%,
+    var(--color-white-broken) 50%,
+    var(--color-sand) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite linear;
+  border-radius: var(--radius-sm);
 }

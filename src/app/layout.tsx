@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { SanityLive } from "@/sanity/lib/live";
+import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
 import "./globals.css";
 
 // Tipografía display — para titulares, nombres de productos
@@ -39,9 +40,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${cormorant.variable} ${dmSans.variable}`}>
-      <body className="bg-[#FAF8F5] text-[#1A1814] antialiased">
-        {children}
-        <SanityLive />
+      <body className="bg-cream text-dark antialiased">
+        <SmoothScrollProvider>
+          {children}
+          <SanityLive />
+        </SmoothScrollProvider>
       </body>
     </html>
   );

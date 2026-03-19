@@ -1,30 +1,29 @@
 import Link from "next/link";
 import { Instagram } from "lucide-react";
+import "./Footer.css";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#EDE8DF] bg-[#FAF8F5]">
-      <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
+    <footer className="footer">
+      <div className="container footer__container">
         {/* Marca */}
-        <div className="space-y-4">
+        <div className="footer__section">
           <p
-            className="text-xl tracking-[0.2em] uppercase"
+            className="footer__brand"
             style={{ fontFamily: "var(--font-display)" }}
           >
             Solea Sora
           </p>
-          <p className="text-sm text-[#6B6560] leading-relaxed max-w-xs">
+          <p className="footer__description">
             Skincare sensorial inspirado en la luz y el aire. Fórmulas para una
             piel viva.
           </p>
         </div>
 
         {/* Links */}
-        <div className="space-y-4">
-          <p className="text-xs tracking-widest uppercase text-[#6B6560]">
-            Navegación
-          </p>
-          <nav className="flex flex-col gap-3">
+        <div className="footer__section">
+          <p className="footer__title">Navegación</p>
+          <nav className="footer__nav">
             {[
               { label: "Productos", href: "/catalogo" },
               { label: "Nosotras", href: "/nosotras" },
@@ -34,7 +33,7 @@ export default function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm text-[#1A1814] hover:text-[#C9A96E] transition-colors w-fit"
+                className="footer__link"
               >
                 {link.label}
               </Link>
@@ -43,23 +42,21 @@ export default function Footer() {
         </div>
 
         {/* Contacto */}
-        <div className="space-y-4">
-          <p className="text-xs tracking-widest uppercase text-[#6B6560]">
-            Contacto
-          </p>
-          <div className="flex flex-col gap-3">
+        <div className="footer__section">
+          <p className="footer__title">Contacto</p>
+          <div className="footer__contact">
             <a
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-[#1A1814] hover:text-[#C9A96E] transition-colors w-fit"
+              className="footer__contact-link"
             >
               <Instagram size={16} strokeWidth={1.5} />
               @soleasora
             </a>
             <a
               href="https://wa.me/5491100000000"
-              className="text-sm text-[#1A1814] hover:text-[#C9A96E] transition-colors w-fit"
+              className="footer__contact-link"
             >
               WhatsApp
             </a>
@@ -68,21 +65,21 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-[#EDE8DF] px-6 py-6">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-[#6B6560]">
+      <div className="footer__bottom">
+        <div className="container footer__bottom-content">
+          <p className="footer__copyright">
             {`© ${new Date().getFullYear()} Solea Sora. Todos los derechos reservados.`}
           </p>
-          <div className="flex gap-6">
+          <div className="footer__legal">
             <Link
               href="/privacidad"
-              className="text-xs text-[#6B6560] hover:text-[#1A1814] transition-colors"
+              className="footer__legal-link"
             >
               Privacidad
             </Link>
             <Link
               href="/terminos"
-              className="text-xs text-[#6B6560] hover:text-[#1A1814] transition-colors"
+              className="footer__legal-link"
             >
               Términos
             </Link>

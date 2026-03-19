@@ -1,0 +1,109 @@
+/* ============================================
+   PRODUCT INGREDIENTS STYLES
+   ============================================ */
+
+.product-ingredients {
+  padding: 6rem 20px;
+  background-color: var(--color-dark);
+  color: var(--color-cream);
+}
+
+@media (min-width: 768px) {
+  .product-ingredients {
+    padding: 6rem 40px;
+  }
+}
+
+.product-ingredients__container {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+/* Header */
+.product-ingredients__header {
+  margin-bottom: 4rem;
+}
+
+.product-ingredients__tagline {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0 0 12px 0;
+}
+
+.product-ingredients__title {
+  font-size: clamp(2.25rem, 8vw, 3.75rem);
+  font-weight: 300;
+  color: var(--color-cream);
+  margin: 0;
+}
+
+/* Grid */
+.product-ingredients__grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 32px;
+}
+
+@media (min-width: 640px) {
+  .product-ingredients__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-ingredients__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Card */
+.product-ingredients__card {
+  border: 1px solid rgba(250, 248, 245, 0.1);
+  padding: 32px;
+  transition: border-color 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .product-ingredients__card {
+    padding: 48px;
+  }
+}
+
+.product-ingredients__card:hover {
+  border-color: rgba(201, 169, 110, 0.4);
+}
+
+/* Icon */
+.product-ingredients__icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  opacity: 0.8;
+  margin-bottom: 12px;
+}
+
+/* Name */
+.product-ingredients__name {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--color-cream);
+  margin: 0 0 8px 0;
+}
+
+/* Scientific name */
+.product-ingredients__scientific {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--color-muted);
+  margin: 0 0 12px 0;
+}
+
+/* Benefit */
+.product-ingredients__benefit {
+  font-size: 14px;
+  line-height: 1.625;
+  color: rgba(250, 248, 245, 0.7);
+  margin: 0;
+}

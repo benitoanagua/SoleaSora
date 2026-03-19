@@ -1,0 +1,110 @@
+/* ============================================
+   HOME MANIFESTO STYLES
+   ============================================ */
+
+.home-manifesto {
+  padding: 8rem 20px;
+  background-color: var(--color-dark);
+  color: var(--color-cream);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .home-manifesto {
+    padding: 8rem 40px;
+  }
+}
+
+.home-manifesto__container {
+}
+
+/* Content */
+.home-manifesto__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 48rem;
+}
+
+.home-manifesto__tagline {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.home-manifesto__title {
+  font-size: clamp(2.25rem, 8vw, 3.75rem);
+  font-weight: 300;
+  line-height: 1.25;
+  color: var(--color-cream);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .home-manifesto__title {
+    font-size: clamp(3rem, 12vw, 6rem);
+  }
+}
+
+.home-manifesto__accent {
+  font-style: normal;
+  color: var(--color-gold);
+}
+
+.home-manifesto__description {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: rgba(250, 248, 245, 0.6);
+  max-width: 42rem;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .home-manifesto__description {
+    font-size: 1.25rem;
+  }
+}
+
+.home-manifesto__link {
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-cream);
+  border-bottom: 1px solid rgba(250, 248, 245, 0.3);
+  padding-bottom: 2px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.home-manifesto__link:hover {
+  color: var(--color-gold);
+  border-color: rgba(201, 169, 110, 0.4);
+}
+
+/* Words */
+.home-manifesto__words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.home-manifesto__word {
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(250, 248, 245, 0.5);
+  border: 1px solid rgba(250, 248, 245, 0.1);
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+.home-manifesto__word:hover {
+  border-color: rgba(201, 169, 110, 0.4);
+  color: var(--color-gold);
+}

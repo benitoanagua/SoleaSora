@@ -1,11 +1,17 @@
 // src/lib/utils.ts
 import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+/**
+ * Utility para combinar clases CSS condicionalmente
+ * Reemplaza a twMerge ya que no usamos Tailwind
+ */
+export function cn(...inputs: ClassValue[]): string {
+  return clsx(inputs);
 }
 
+/**
+ * Formatea un número como precio en ARS
+ */
 export function formatPrice(amount: number, currency = "ARS"): string {
   return new Intl.NumberFormat("es-AR", {
     style: "currency",
@@ -14,6 +20,9 @@ export function formatPrice(amount: number, currency = "ARS"): string {
   }).format(amount);
 }
 
+/**
+ * Convierte texto a slug URL-safe
+ */
 export function slugify(text: string): string {
   return text
     .toLowerCase()

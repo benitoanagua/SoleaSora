@@ -1,0 +1,78 @@
+.product-how-to-use {
+  padding: 6rem 1.5rem;
+  background-color: var(--color-cream);
+}
+
+@media (min-width: 768px) {
+  .product-how-to-use {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-how-to-use {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+.product-how-to-use__container {
+}
+
+.product-how-to-use__header {
+  margin-bottom: 4rem;
+  space-y: 0.75rem;
+}
+
+.product-how-to-use__tagline {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-taupe);
+}
+
+.product-how-to-use__title {
+  font-size: 2.25rem;
+  font-weight: 300;
+  font-family: var(--font-display);
+}
+
+@media (min-width: 768px) {
+  .product-how-to-use__title {
+    font-size: 3rem;
+  }
+}
+
+.product-how-to-use__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.product-how-to-use__item {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.product-how-to-use__item:last-child {
+  border-bottom: none;
+}
+
+.product-how-to-use__step-number {
+  font-size: 2.25rem;
+  font-weight: 300;
+  font-family: var(--font-display);
+  color: var(--color-sand);
+  flex-shrink: 0;
+  width: 3rem;
+  text-align: right;
+}
+
+.product-how-to-use__instruction {
+  color: var(--color-dark);
+  line-height: 1.625;
+  align-self: center;
+}

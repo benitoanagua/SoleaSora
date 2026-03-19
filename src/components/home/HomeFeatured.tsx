@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ProductCard from "@/components/product/ProductCard";
 import type { ProductCard as ProductCardType } from "@/types";
+import "./HomeFeatured.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,7 +23,6 @@ export default function HomeFeatured({ products }: Props) {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Título
       gsap.from(titleRef.current, {
         opacity: 0,
         y: 40,
@@ -35,7 +35,6 @@ export default function HomeFeatured({ products }: Props) {
         },
       });
 
-      // Cards con stagger
       const cards = gridRef.current?.querySelectorAll(".product-card");
       if (cards?.length) {
         gsap.from(cards, {
@@ -59,16 +58,14 @@ export default function HomeFeatured({ products }: Props) {
   if (!products?.length) return null;
 
   return (
-    <section ref={sectionRef} className="py-32 px-6 bg-[#FAF8F5]">
-      <div className="max-w-7xl mx-auto">
+    <section ref={sectionRef} className="home-featured">
+      <div className="container home-featured__container">
         {/* Header */}
-        <div ref={titleRef} className="flex items-end justify-between mb-16">
-          <div className="space-y-3">
-            <p className="text-xs tracking-widest uppercase text-[#6B6560]">
-              Destacados
-            </p>
+        <div ref={titleRef} className="home-featured__header">
+          <div className="home-featured__title-wrapper">
+            <p className="home-featured__tagline">Destacados</p>
             <h2
-              className="text-4xl md:text-5xl font-light"
+              className="home-featured__title"
               style={{ fontFamily: "var(--font-display)" }}
             >
               Rituales esenciales
@@ -76,7 +73,7 @@ export default function HomeFeatured({ products }: Props) {
           </div>
           <Link
             href="/catalogo"
-            className="hidden md:block text-sm tracking-widest uppercase border-b border-[#1A1814] pb-0.5 hover:text-[#C9A96E] hover:border-[#C9A96E] transition-colors"
+            className="home-featured__link"
           >
             Ver todos
           </Link>
@@ -85,20 +82,20 @@ export default function HomeFeatured({ products }: Props) {
         {/* Grid */}
         <div
           ref={gridRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16"
+          className="home-featured__grid"
         >
           {products.map((product, i) => (
-            <div key={product._id} className="product-card">
+            <div key={product._id} className="home-featured__item">
               <ProductCard product={product} priority={i === 0} />
             </div>
           ))}
         </div>
 
         {/* CTA mobile */}
-        <div className="mt-12 text-center md:hidden">
+        <div className="home-featured__mobile-cta">
           <Link
             href="/catalogo"
-            className="text-sm tracking-widest uppercase border-b border-[#1A1814] pb-0.5"
+            className="home-featured__mobile-link"
           >
             Ver todos los productos
           </Link>

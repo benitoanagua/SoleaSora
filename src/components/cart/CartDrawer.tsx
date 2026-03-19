@@ -1,131 +1,188 @@
 "use client";
 
-import { X, ShoppingBag, Trash2, Plus, Minus } from "lucide-react";
+import { X, ShoppingBag, Trash2, Plus, Minus, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/hooks/useCart";
-import { formatPrice, cn } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import "./CartDrawer.css";
 
 export default function CartDrawer() {
   const { items, isOpen, closeCart, removeItem, updateQuantity, total, count } =
     useCart();
+  
+  const panelRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  // Animaciones de entrada/salida del drawer
+  useEffect(() => {
+    if (!panelRef.current || !overlayRef.current) return;
+
+    if (isOpen) {
+      gsap.to(overlayRef.current, {
+        opacity: 0.4,
+        duration: 0.4,
+        ease: "power2.out",
+      });
+
+      gsap.to(panelRef.current, {
+        x: 0,
+        duration: 0.5,
+        ease: "cubic-bezier(0.16, 1, 0.3, 1)",
+        delay: 0.05,
+      });
+    } else {
+      gsap.to(overlayRef.current, {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in",
+      });
+
+      gsap.to(panelRef.current, {
+        x: "100%",
+        duration: 0.4,
+        ease: "cubic-bezier(0.16, 1, 0.3, 1)",
+      });
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  const subtotal = total;
+  const shippingThreshold = 50000;
+  const freeShippingProgress = Math.min((subtotal / shippingThreshold) * 100, 100);
+  const needsMoreForFreeShipping = subtotal < shippingThreshold;
 
   return (
     <>
       {/* Overlay */}
       <div
+        ref={overlayRef}
         onClick={closeCart}
-        className={cn(
-          "fixed inset-0 bg-[#1A1814] z-50 transition-opacity duration-500",
-          isOpen
-            ? "opacity-40 pointer-events-auto"
-            : "opacity-0 pointer-events-none",
-        )}
+        className="cart-drawer__overlay"
+        aria-hidden="true"
       />
 
-      {/* Panel */}
+      {/* Panel del carrito */}
       <aside
-        className={cn(
-          "fixed top-0 right-0 h-full w-full max-w-md bg-[#FAF8F5] z-50",
-          "flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]",
-          isOpen ? "translate-x-0" : "translate-x-full",
-        )}
+        ref={panelRef}
+        className="cart-drawer__panel"
+        role="dialog"
+        aria-label="Carrito de compras"
+        aria-modal="true"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-[#EDE8DF]">
-          <div className="flex items-center gap-2">
-            <ShoppingBag size={18} strokeWidth={1.5} />
-            <span className="text-sm tracking-widest uppercase">
+        <div className="cart-drawer__header">
+          <div className="cart-drawer__title-wrapper">
+            <ShoppingBag size={20} strokeWidth={1.5} className="cart-drawer__icon" />
+            <span className="cart-drawer__title">
               Carrito {count > 0 && `(${count})`}
             </span>
           </div>
           <button
             onClick={closeCart}
             aria-label="Cerrar carrito"
-            className="p-2 hover:opacity-60 transition-opacity"
+            className="cart-drawer__close-btn"
           >
-            <X size={18} strokeWidth={1.5} />
+            <X size={20} strokeWidth={1.5} />
           </button>
         </div>
 
-        {/* Items */}
-        <div className="flex-1 overflow-y-auto px-6 py-6">
-          {items.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center gap-4 text-center">
-              <ShoppingBag
-                size={40}
-                strokeWidth={1}
-                className="text-[#EDE8DF]"
+        {/* Barra de progreso para envío gratis */}
+        {needsMoreForFreeShipping && items.length > 0 && (
+          <div className="cart-drawer__shipping-progress">
+            <p className="cart-drawer__shipping-text">
+              Te faltan{" "}
+              <span className="cart-drawer__shipping-amount">
+                {formatPrice(shippingThreshold - subtotal)}
+              </span>{" "}
+              para tener envío gratis
+            </p>
+            <div className="cart-drawer__progress-bar">
+              <div 
+                className="cart-drawer__progress-fill"
+                style={{ width: `${freeShippingProgress}%` }}
               />
-              <p
-                className="text-2xl font-light text-[#1A1814]"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                Tu carrito está vacío
-              </p>
-              <p className="text-sm text-[#6B6560]">
-                Explorá nuestros productos y encontrá tu ritual
-              </p>
-              <button
-                onClick={closeCart}
-                className="mt-4 text-sm tracking-widest uppercase border-b border-[#1A1814] pb-0.5 hover:text-[#C9A96E] hover:border-[#C9A96E] transition-colors"
-              >
-                Ver productos
-              </button>
             </div>
+          </div>
+        )}
+
+        {/* Items del carrito */}
+        <div className="cart-drawer__items">
+          {items.length === 0 ? (
+            <EmptyCartState onClose={closeCart} />
           ) : (
-            <ul className="flex flex-col gap-6">
-              {items.map((item) => (
-                <li key={item._id} className="flex gap-4">
-                  {/* Imagen */}
+            <ul className="cart-drawer__items-list">
+              {items.map((item, index) => (
+                <li 
+                  key={item._id} 
+                  className="cart-drawer__item"
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  {/* Imagen del producto */}
                   <Link
                     href={`/producto/${item.slug.current}`}
                     onClick={closeCart}
-                    className="shrink-0 w-20 h-20 bg-[#EDE8DF] rounded-lg overflow-hidden"
+                    className="cart-drawer__item-image-wrapper"
                   >
                     {item.mainImage?.asset?.url && (
                       <Image
                         src={item.mainImage.asset.url}
-                        alt={item.mainImage.alt}
-                        width={80}
-                        height={80}
-                        className="w-full h-full object-cover"
+                        alt={item.mainImage.alt || item.name}
+                        width={96}
+                        height={96}
+                        className="cart-drawer__item-image"
                       />
                     )}
                   </Link>
 
-                  {/* Info */}
-                  <div className="flex-1 flex flex-col gap-2">
-                    <div className="flex items-start justify-between gap-2">
+                  {/* Info del producto */}
+                  <div className="cart-drawer__item-info">
+                    {/* Header con nombre y botón eliminar */}
+                    <div className="cart-drawer__item-header">
                       <Link
                         href={`/producto/${item.slug.current}`}
                         onClick={closeCart}
-                        className="text-sm font-medium leading-tight hover:text-[#C9A96E] transition-colors"
+                        className="cart-drawer__item-name"
                       >
                         {item.name}
                       </Link>
                       <button
                         onClick={() => removeItem(item._id)}
-                        aria-label="Eliminar producto"
-                        className="shrink-0 p-1 hover:text-red-400 transition-colors"
+                        aria-label={`Eliminar ${item.name} del carrito`}
+                        className="cart-drawer__item-remove"
                       >
                         <Trash2 size={14} strokeWidth={1.5} />
                       </button>
                     </div>
 
-                    <div className="flex items-center justify-between">
-                      {/* Cantidad */}
-                      <div className="flex items-center gap-3 border border-[#EDE8DF] rounded-full px-3 py-1">
+                    {/* Precio unitario */}
+                    <p className="cart-drawer__item-unit-price">
+                      {formatPrice(item.price)} c/u
+                    </p>
+
+                    {/* Controles de cantidad y precio total */}
+                    <div className="cart-drawer__item-controls">
+                      {/* Selector de cantidad */}
+                      <div className="cart-drawer__quantity-selector">
                         <button
                           onClick={() =>
-                            updateQuantity(item._id, item.quantity - 1)
+                            updateQuantity(item._id, Math.max(1, item.quantity - 1))
                           }
                           aria-label="Reducir cantidad"
-                          className="hover:text-[#C9A96E] transition-colors"
+                          disabled={item.quantity <= 1}
+                          className="cart-drawer__quantity-btn"
                         >
                           <Minus size={12} strokeWidth={2} />
                         </button>
-                        <span className="text-sm w-4 text-center">
+                        <span className="cart-drawer__quantity-value">
                           {item.quantity}
                         </span>
                         <button
@@ -133,14 +190,14 @@ export default function CartDrawer() {
                             updateQuantity(item._id, item.quantity + 1)
                           }
                           aria-label="Aumentar cantidad"
-                          className="hover:text-[#C9A96E] transition-colors"
+                          className="cart-drawer__quantity-btn"
                         >
                           <Plus size={12} strokeWidth={2} />
                         </button>
                       </div>
 
-                      {/* Precio */}
-                      <span className="text-sm font-medium">
+                      {/* Precio total del item */}
+                      <span className="cart-drawer__item-total">
                         {formatPrice(item.price * item.quantity)}
                       </span>
                     </div>
@@ -151,36 +208,57 @@ export default function CartDrawer() {
           )}
         </div>
 
-        {/* Footer con total y CTA */}
+        {/* Footer con resumen y CTA */}
         {items.length > 0 && (
-          <div className="px-6 py-6 border-t border-[#EDE8DF] space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-[#6B6560] tracking-wide uppercase text-xs">
-                Total
-              </span>
+          <div className="cart-drawer__footer">
+            {/* Resumen de precios */}
+            <div className="cart-drawer__summary">
+              <div className="cart-drawer__summary-row">
+                <span className="cart-drawer__summary-label">Subtotal</span>
+                <span className="cart-drawer__summary-value">
+                  {formatPrice(subtotal)}
+                </span>
+              </div>
+              <div className="cart-drawer__summary-row">
+                <span className="cart-drawer__summary-label">Envío</span>
+                <span className={`cart-drawer__summary-value ${subtotal >= shippingThreshold ? 'cart-drawer__summary-value--free' : ''}`}>
+                  {subtotal >= shippingThreshold 
+                    ? "Gratis" 
+                    : "Calculado al finalizar"}
+                </span>
+              </div>
+            </div>
+
+            {/* Total */}
+            <div className="cart-drawer__total-row">
+              <span className="cart-drawer__total-label">Total</span>
               <span
-                className="text-2xl font-light"
+                className="cart-drawer__total-value"
                 style={{ fontFamily: "var(--font-display)" }}
               >
                 {formatPrice(total)}
               </span>
             </div>
 
-            <p className="text-xs text-[#6B6560] text-center">
-              Envío calculado en el checkout
+            {/* Disclaimer */}
+            <p className="cart-drawer__disclaimer">
+              Envío calculado en el checkout. Devolución gratuita dentro de los 30 días.
             </p>
 
+            {/* CTA Principal - Checkout */}
             <Link
               href="/checkout"
               onClick={closeCart}
-              className="block w-full bg-[#1A1814] text-[#FAF8F5] text-sm tracking-widest uppercase text-center py-4 hover:bg-[#C9A96E] transition-colors duration-300"
+              className="cart-drawer__checkout-btn"
             >
-              Ir al checkout
+              <span>Finalizar compra</span>
+              <ArrowRight size={16} strokeWidth={1.5} />
             </Link>
 
+            {/* CTA Secundario */}
             <button
               onClick={closeCart}
-              className="block w-full text-sm tracking-widest uppercase text-center text-[#6B6560] hover:text-[#1A1814] transition-colors py-2"
+              className="cart-drawer__continue-btn"
             >
               Seguir comprando
             </button>
@@ -188,5 +266,53 @@ export default function CartDrawer() {
         )}
       </aside>
     </>
+  );
+}
+
+function EmptyCartState({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="cart-drawer__empty">
+      {/* Ilustración minimalista */}
+      <div className="cart-drawer__empty-icon-wrapper">
+        <div className="cart-drawer__empty-circle">
+          <ShoppingBag
+            size={40}
+            strokeWidth={1}
+            className="cart-drawer__empty-icon"
+          />
+        </div>
+        <div className="cart-drawer__empty-ping" />
+      </div>
+
+      {/* Texto principal */}
+      <div className="cart-drawer__empty-text">
+        <h3
+          className="cart-drawer__empty-title"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
+          Tu carrito está vacío
+        </h3>
+        <p className="cart-drawer__empty-description">
+          Tu piel te lo agradecerá, pero tu carrito está vacío. Explorá nuestros productos y encontrá tu ritual.
+        </p>
+      </div>
+
+      {/* CTA */}
+      <Link
+        href="/catalogo"
+        onClick={onClose}
+        className="cart-drawer__empty-link"
+      >
+        <span>Ver productos</span>
+        <svg 
+          className="cart-drawer__empty-arrow" 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </Link>
+    </div>
   );
 }

@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import "./HomeManifesto.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,7 +26,6 @@ export default function HomeManifesto() {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Texto principal
       const lines = textRef.current?.querySelectorAll("[data-line]");
       if (lines?.length) {
         gsap.from(lines, {
@@ -42,7 +42,6 @@ export default function HomeManifesto() {
         });
       }
 
-      // Palabras flotantes
       const words = wordsRef.current?.querySelectorAll("[data-word]");
       if (words?.length) {
         gsap.from(words, {
@@ -66,29 +65,29 @@ export default function HomeManifesto() {
   return (
     <section
       ref={sectionRef}
-      className="py-32 px-6 bg-[#1A1814] text-[#FAF8F5] overflow-hidden"
+      className="home-manifesto"
     >
-      <div className="max-w-5xl mx-auto space-y-24">
+      <div className="container home-manifesto__container">
         {/* Manifesto */}
-        <div ref={textRef} className="space-y-6 max-w-3xl">
+        <div ref={textRef} className="home-manifesto__content">
           <p
             data-line
-            className="text-xs tracking-widest uppercase text-[#6B6560]"
+            className="home-manifesto__tagline"
           >
             Nuestra filosofía
           </p>
           <h2
             data-line
-            className="text-4xl md:text-6xl font-light leading-tight"
+            className="home-manifesto__title"
             style={{ fontFamily: "var(--font-display)" }}
           >
             Solea es la luz.
             <br />
-            <em className="text-[#C9A96E]">Sora es el cielo.</em>
+            <em className="home-manifesto__accent">Sora es el cielo.</em>
           </h2>
           <p
             data-line
-            className="text-lg text-[#FAF8F5]/60 leading-relaxed max-w-xl"
+            className="home-manifesto__description"
           >
             Cada fórmula nace de la convicción de que el cuidado de la piel es
             un ritual sensorial. No una rutina. Una experiencia de luminosidad,
@@ -97,7 +96,7 @@ export default function HomeManifesto() {
           <div data-line>
             <Link
               href="/nosotras"
-              className="text-sm tracking-widest uppercase border-b border-[#FAF8F5]/30 pb-0.5 hover:border-[#C9A96E] hover:text-[#C9A96E] transition-colors duration-300"
+              className="home-manifesto__link"
             >
               Conocé nuestra historia
             </Link>
@@ -105,12 +104,12 @@ export default function HomeManifesto() {
         </div>
 
         {/* Palabras clave */}
-        <div ref={wordsRef} className="flex flex-wrap gap-3">
+        <div ref={wordsRef} className="home-manifesto__words">
           {WORDS.map((word) => (
             <span
               key={word}
               data-word
-              className="border border-[#FAF8F5]/10 text-[#FAF8F5]/50 text-sm tracking-widest uppercase px-5 py-2.5 hover:border-[#C9A96E]/40 hover:text-[#C9A96E] transition-colors duration-300 cursor-default"
+              className="home-manifesto__word"
             >
               {word}
             </span>
