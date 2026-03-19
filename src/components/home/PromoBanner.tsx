@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./PromoBanner.css";
 
 interface Props {
@@ -15,12 +15,23 @@ interface Props {
 export default function PromoBanner({ message, ctaText, ctaUrl, backgroundColor }: Props) {
   const [visible, setVisible] = useState(true);
 
+  useEffect(() => {
+    // Actualizar variable CSS para el navbar
+    document.documentElement.style.setProperty(
+      '--promo-banner-height',
+      visible ? '44px' : '0px'
+    );
+    return () => {
+      document.documentElement.style.setProperty('--promo-banner-height', '0px');
+    };
+  }, [visible]);
+
   if (!visible) return null;
 
-  const bgClass = backgroundColor === "gold" 
-    ? "promo-banner--gold" 
-    : backgroundColor === "dark" 
-    ? "promo-banner--dark" 
+  const bgClass = backgroundColor === "gold"
+    ? "promo-banner--gold"
+    : backgroundColor === "dark"
+    ? "promo-banner--dark"
     : "promo-banner--cream";
 
   return (

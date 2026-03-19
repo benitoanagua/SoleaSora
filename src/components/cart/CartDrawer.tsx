@@ -314,14 +314,7 @@ function EmptyCartState({ onClose }: { onClose: () => void }) {
         className="cart-drawer__empty-link"
       >
         <span>Ver productos</span>
-        <svg 
-          className="cart-drawer__empty-arrow" 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
+        <ArrowRight size={16} strokeWidth={1.5} className="cart-drawer__empty-arrow" />
       </Link>
     </div>
   );

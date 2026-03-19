@@ -1,4 +1,5 @@
 import { sanityFetch } from "@/sanity/lib/live";
+import { client } from "@/sanity/lib/client";
 import { QUERIES } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -19,9 +20,7 @@ interface BlogPost {
 }
 
 export async function generateStaticParams() {
-  const { data: posts } = await sanityFetch({
-    query: QUERIES.BLOG_POSTS,
-  });
+  const posts = await client.fetch(QUERIES.BLOG_POSTS);
   return (posts as BlogPost[])?.map((post) => ({
     slug: post.slug.current,
   })) || [];

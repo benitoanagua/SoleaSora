@@ -1,7 +1,7 @@
 .product-hero {
   position: relative;
   min-height: 100vh;
-  padding-top: 4rem;
+  padding-top: 0;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   background-color: var(--color-cream);

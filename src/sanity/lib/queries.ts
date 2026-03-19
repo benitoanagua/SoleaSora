@@ -482,6 +482,19 @@ export const QUERIES = {
       banner
     }
   `,
+
+  // Banner promocional global
+  PROMO_BANNER: /* groq */ `
+    *[_type == "homePage"][0] {
+      promoBanner {
+        enabled,
+        message,
+        ctaText,
+        ctaUrl,
+        backgroundColor
+      }
+    }.promoBanner
+  `,
 };
 
 // ─────────────────────────────────────────────────────────────

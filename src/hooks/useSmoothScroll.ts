@@ -28,7 +28,6 @@ export function useSmoothScroll() {
       gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1,
-      smoothTouch: false, // Desactivado en mobile por performance
       touchMultiplier: 2,
       infinite: false,
       prevent: () => {
@@ -97,9 +96,5 @@ export function useLenisUpdate() {
     };
   }, []);
 
-  const update = () => {
-    lenisRef.current?.update();
-  };
-
-  return { update, lenisRef };
+  return { lenisRef };
 }

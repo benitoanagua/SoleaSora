@@ -42,7 +42,7 @@ export default function ProductStory({ sections }: Props) {
               <div className="product-story__image-wrapper">
                 <img
                   src={imageUrl}
-                  alt={section.accentImage.alt ?? section.headline}
+                  alt={section.accentImage?.alt ?? section.headline}
                   className="product-story__image"
                 />
               </div>

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Search } from "lucide-react";
 import ProductCard from "./ProductCard";
 import type { ProductCard as ProductCardType, Category } from "@/types";
 import "./ProductGrid.css";
@@ -74,19 +75,7 @@ export default function ProductGrid({ products, categories = [] }: Props) {
       {visibleProducts.length === 0 && (
         <div className="product-grid__empty">
           <div className="product-grid__empty-icon-wrapper">
-            <svg
-              className="product-grid__empty-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+            <Search size={32} strokeWidth={1.5} className="product-grid__empty-icon" />
           </div>
           <h3
             className="product-grid__empty-title"

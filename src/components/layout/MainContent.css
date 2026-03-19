@@ -1,0 +1,3 @@
+.main-content {
+  padding-top: var(--main-padding-top, 64px);
+}

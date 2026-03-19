@@ -75,15 +75,6 @@ export default function Navbar() {
           <div className="navbar__actions">
             {/* Theme Toggle */}
             <ThemeToggle />
-            
-            {/* Icono Shop */}
-            <Link
-              href="/catalogo"
-              className="navbar__button"
-              aria-label="Ir a la tienda"
-            >
-              <ShoppingBag size={20} strokeWidth={1.5} />
-            </Link>
 
             {/* Carrito */}
             <button
@@ -94,7 +85,7 @@ export default function Navbar() {
             >
               <ShoppingBag size={20} strokeWidth={1.5} />
               {count > 0 && (
-                <span 
+                <span
                   className="navbar__cart-badge"
                   role="status"
                   aria-live="polite"

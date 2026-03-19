@@ -1,13 +1,13 @@
 .catalog-page {
   min-height: 100vh;
-  padding-top: 5rem;
+  padding-top: 1rem;
   padding-bottom: 6rem;
   background-color: var(--color-cream);
 }
 
 .catalog-page__header {
   position: relative;
-  padding-top: 4rem;
+  padding-top: 1rem;
   padding-bottom: 3rem;
   overflow: hidden;
 }

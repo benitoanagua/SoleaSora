@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
-import { ShoppingBag, ChevronLeft, RotateCcw } from "lucide-react";
+import { ShoppingBag, ChevronLeft, RotateCcw, Minus, Plus, Check } from "lucide-react";
 import Link from "next/link";
 import gsap from "gsap";
 import { useCart } from "@/hooks/useCart";
@@ -340,22 +340,18 @@ export default function ProductHero({ product }: Props) {
         {/* Selector de cantidad (opcional) */}
         <div data-anim className="product-hero__quantity">
           <div className="product-hero__quantity-controls">
-            <button 
+            <button
               className="product-hero__quantity-button"
               aria-label="Reducir cantidad"
             >
-              <svg width="12" height="2" viewBox="0 0 12 2" fill="currentColor">
-                <rect width="12" height="2" rx="1" />
-              </svg>
+              <Minus size={12} strokeWidth={2} />
             </button>
             <span className="product-hero__quantity-value">1</span>
-            <button 
+            <button
               className="product-hero__quantity-button"
               aria-label="Aumentar cantidad"
             >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-                <path d="M7 1H5V5H1V7H5V11H7V7H11V5H7V1Z" />
-              </svg>
+              <Plus size={12} strokeWidth={2} />
             </button>
           </div>
         </div>
@@ -411,15 +407,11 @@ export default function ProductHero({ product }: Props) {
         {/* Información de envío */}
         <div data-anim className="product-hero__shipping">
           <p className="product-hero__shipping-item">
-            <svg className="product-hero__shipping-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
-            </svg>
+            <Check size={18} strokeWidth={1.5} className="product-hero__shipping-icon" />
             Envío gratis en compras superiores a $50.000
           </p>
           <p className="product-hero__shipping-item">
-            <svg className="product-hero__shipping-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
+            <RotateCcw size={18} strokeWidth={1.5} className="product-hero__shipping-icon" />
             Devolución gratuita dentro de los 30 días
           </p>
         </div>

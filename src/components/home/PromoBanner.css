@@ -1,8 +1,11 @@
 .promo-banner {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   padding: 12px 40px 12px 20px;
   text-align: center;
-  z-index: 40;
+  z-index: 60;
 }
 
 .promo-banner--gold {

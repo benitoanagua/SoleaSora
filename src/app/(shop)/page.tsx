@@ -6,7 +6,6 @@ import HomeNarrativeBlocks from "@/components/home/HomeNarrativeBlocks";
 import HomeManifesto from "@/components/home/HomeManifesto";
 import HomeBenefits from "@/components/home/HomeBenefits";
 import HomeTestimonials from "@/components/home/HomeTestimonials";
-import PromoBanner from "@/components/home/PromoBanner";
 import type { ProductCard } from "@/types";
 
 interface HomePageData {
@@ -25,13 +24,6 @@ interface HomePageData {
       title: string;
       description: string;
     }>;
-  };
-  promoBanner?: {
-    enabled: boolean;
-    message: string;
-    ctaText?: string;
-    ctaUrl?: string;
-    backgroundColor?: string;
   };
   testimonials?: Array<{
     quote: string;
@@ -52,17 +44,7 @@ export default async function HomePage() {
   const home = homeResult.data as HomePageData;
 
   return (
-    <main>
-      {/* Banner promocional */}
-      {home?.promoBanner?.enabled && (
-        <PromoBanner
-          message={home.promoBanner.message}
-          ctaText={home.promoBanner.ctaText}
-          ctaUrl={home.promoBanner.ctaUrl}
-          backgroundColor={home.promoBanner.backgroundColor}
-        />
-      )}
-
+    <>
       {/* Hero */}
       <HomeHero
         headline={home?.hero?.headline}
@@ -91,6 +73,6 @@ export default async function HomePage() {
 
       {/* Manifesto */}
       <HomeManifesto />
-    </main>
+    </>
   );
 }
