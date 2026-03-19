@@ -9,21 +9,19 @@ import "./HomeHero.css";
 gsap.registerPlugin(ScrollTrigger);
 
 interface Props {
-  title?: string;
-  subtitle?: string;
-  backgroundImage?: string;
-  videoUrl?: string;
-  ctaText?: string;
-  ctaLink?: string;
+  headline?: string;
+  subheadline?: string;
+  backgroundImage?: { asset: { url: string } };
+  backgroundVideo?: string;
+  cta?: { text: string; url: string };
 }
 
 export default function HomeHero({
-  title = "Solea Sora",
-  subtitle = "La luz en tu piel.\nEl cielo en cada gota.",
+  headline = "Solea Sora",
+  subheadline = "La luz en tu piel.\nEl cielo en cada gota.",
   backgroundImage,
-  videoUrl,
-  ctaText = "Ver productos",
-  ctaLink = "/catalogo",
+  backgroundVideo,
+  cta,
 }: Props) {
   const containerRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
@@ -132,11 +130,11 @@ export default function HomeHero({
       />
 
       {/* Video de fondo (opcional) */}
-      {videoUrl && (
+      {backgroundVideo && (
         <div className="home-hero__video-container">
           <video
             ref={videoRef}
-            src={videoUrl}
+            src={backgroundVideo}
             autoPlay
             loop
             muted
@@ -147,11 +145,11 @@ export default function HomeHero({
       )}
 
       {/* Imagen de fondo alternativa */}
-      {backgroundImage && !videoUrl && (
+      {backgroundImage?.asset?.url && !backgroundVideo && (
         <div
           className="home-hero__image-bg"
           style={{
-            backgroundImage: `url(${backgroundImage})`,
+            backgroundImage: `url(${backgroundImage.asset.url})`,
           }}
           aria-hidden="true"
         />
@@ -176,9 +174,9 @@ export default function HomeHero({
           className="home-hero__title"
           style={{ fontFamily: "var(--font-display)" }}
         >
-          <span className="home-hero__title-line">{title.split(" ")[0]}</span>
+          <span className="home-hero__title-line">{headline.split(" ")[0]}</span>
           <span className="home-hero__title-accent">
-            {title.split(" ")[1] || "Sora"}
+            {headline.split(" ")[1] || "Sora"}
           </span>
         </h1>
 
@@ -187,7 +185,7 @@ export default function HomeHero({
           ref={subRef}
           className="home-hero__subtitle"
         >
-          {subtitle}
+          {subheadline}
         </p>
 
         {/* CTAs */}
@@ -197,10 +195,10 @@ export default function HomeHero({
         >
           {/* CTA Primario */}
           <Link
-            href={ctaLink}
+            href={cta?.url || "/catalogo"}
             className="home-hero__btn home-hero__btn--primary"
           >
-            <span className="home-hero__btn-text">{ctaText}</span>
+            <span className="home-hero__btn-text">{cta?.text || "Ver productos"}</span>
             <span className="home-hero__btn-overlay" />
           </Link>
 

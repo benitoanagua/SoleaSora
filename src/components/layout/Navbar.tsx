@@ -167,4 +167,6 @@ const NAV_LINKS = [
   { label: "Inicio", href: "/" },
   { label: "Productos", href: "/catalogo" },
   { label: "Nosotras", href: "/nosotras" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contacto", href: "/contacto" },
 ];

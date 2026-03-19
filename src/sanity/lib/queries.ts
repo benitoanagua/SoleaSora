@@ -251,6 +251,237 @@ export const QUERIES = {
       description
     }
   `,
+
+  // Página de inicio
+  HOME_PAGE: /* groq */ `
+    *[_type == "homePage"][0] {
+      hero {
+        headline,
+        subheadline,
+        backgroundImage {
+          asset-> {
+            _id,
+            url
+          }
+        },
+        backgroundVideo,
+        cta {
+          text,
+          url
+        }
+      },
+      featuredProducts[]-> {
+        _id,
+        name,
+        slug,
+        tagline,
+        price,
+        mainImage {
+          asset-> {
+            _id,
+            url,
+            metadata {
+              lqip
+            }
+          },
+          alt
+        }
+      },
+      benefitsSection {
+        title,
+        benefits[] {
+          icon,
+          title,
+          description
+        }
+      },
+      promoBanner {
+        enabled,
+        message,
+        ctaText,
+        ctaUrl,
+        backgroundColor
+      },
+      testimonials[] {
+        quote,
+        author,
+        role,
+        avatar {
+          asset-> {
+            _id,
+            url
+          }
+        },
+        rating
+      }
+    }
+  `,
+
+  // Página sobre nosotros
+  ABOUT_PAGE: /* groq */ `
+    *[_type == "aboutPage"][0] {
+      title,
+      heroImage {
+        asset-> { _id, url }
+      },
+      heroText,
+      story {
+        title,
+        content,
+        image {
+          asset-> { _id, url }
+        }
+      },
+      mission {
+        title,
+        content,
+        icon
+      },
+      vision {
+        title,
+        content,
+        icon
+      },
+      values[] {
+        icon,
+        title,
+        description
+      },
+      team[]{
+        name,
+        role,
+        photo {
+          asset-> { _id, url }
+        },
+        bio
+      }
+    }
+  `,
+
+  // Página de contacto
+  CONTACT_PAGE: /* groq */ `
+    *[_type == "contactPage"][0] {
+      title,
+      intro,
+      contactInfo {
+        items[] {
+          icon,
+          label,
+          value,
+          link
+        }
+      },
+      socialLinks[] {
+        platform,
+        url
+      },
+      formTitle,
+      formFields[]{
+        name,
+        label,
+        type,
+        required
+      }
+    }
+  `,
+
+  // Página FAQ
+  FAQ_PAGE: /* groq */ `
+    *[_type == "faqPage"][0] {
+      title,
+      intro,
+      categories[] {
+        icon,
+        title,
+        questions[] {
+          question,
+          answer
+        }
+      }
+    }
+  `,
+
+  // Artículos de blog
+  BLOG_POSTS: /* groq */ `
+    *[_type == "blogPost"] | order(publishedAt desc) {
+      _id,
+      title,
+      slug,
+      excerpt,
+      featuredImage {
+        asset-> { _id, url },
+        alt
+      },
+      author,
+      publishedAt,
+      categories,
+      tags,
+      featured
+    }
+  `,
+
+  // Artículo de blog por slug
+  BLOG_POST_BY_SLUG: /* groq */ `
+    *[_type == "blogPost" && slug.current == $slug][0] {
+      _id,
+      title,
+      slug,
+      excerpt,
+      featuredImage {
+        asset-> { _id, url },
+        alt
+      },
+      content,
+      author,
+      publishedAt,
+      categories,
+      tags,
+      seo {
+        metaTitle,
+        metaDescription
+      }
+    }
+  `,
+
+  // Páginas legales
+  LEGAL_PAGES: /* groq */ `
+    *[_type == "legalPage"] | order(title asc) {
+      _id,
+      title,
+      slug,
+      type,
+      lastUpdated
+    }
+  `,
+
+  // Página legal por slug
+  LEGAL_PAGE_BY_SLUG: /* groq */ `
+    *[_type == "legalPage" && slug.current == $slug][0] {
+      _id,
+      title,
+      slug,
+      type,
+      content,
+      lastUpdated
+    }
+  `,
+
+  // Promociones activas
+  ACTIVE_PROMOTIONS: /* groq */ `
+    *[_type == "promotion" && active == true] {
+      _id,
+      title,
+      description,
+      discountType,
+      discountValue,
+      code,
+      image {
+        asset-> { _id, url }
+      },
+      minimumPurchase,
+      banner
+    }
+  `,
 };
 
 // ─────────────────────────────────────────────────────────────

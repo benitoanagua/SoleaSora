@@ -1,0 +1,69 @@
+.promo-banner {
+  position: relative;
+  padding: 12px 40px 12px 20px;
+  text-align: center;
+  z-index: 40;
+}
+
+.promo-banner--gold {
+  background-color: var(--color-gold);
+  color: var(--color-dark);
+}
+
+.promo-banner--dark {
+  background-color: var(--color-dark);
+  color: var(--color-cream);
+}
+
+.promo-banner--cream {
+  background-color: var(--color-cream);
+  color: var(--color-dark);
+}
+
+.promo-banner__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.promo-banner__message {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.promo-banner__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.promo-banner__cta:hover {
+  opacity: 0.7;
+}
+
+.promo-banner__close {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity var(--duration-fast) ease;
+  padding: 4px;
+}
+
+.promo-banner__close:hover {
+  opacity: 1;
+}

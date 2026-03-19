@@ -1,0 +1,221 @@
+.about-page {
+  min-height: 100vh;
+}
+
+/* Hero */
+.about-page__hero {
+  padding: 140px 20px 80px;
+  text-align: center;
+  background-color: var(--color-surface-container-low);
+}
+
+.about-page__label {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 8px;
+}
+
+.about-page__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 300;
+  color: var(--color-dark);
+  margin: 0 0 24px;
+}
+
+.about-page__hero-text {
+  font-size: 1.125rem;
+  color: var(--color-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Section title */
+.about-page__section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 400;
+  color: var(--color-dark);
+  text-align: center;
+  margin: 0 0 40px;
+}
+
+/* Story */
+.about-page__story {
+  padding: 80px 20px;
+}
+
+.about-page__story-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .about-page__story-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+}
+
+.about-page__story-content p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--color-on-surface);
+  margin: 0 0 16px;
+}
+
+.about-page__story-image {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* Mission & Vision */
+.about-page__mission-vision {
+  padding: 80px 20px;
+  background-color: var(--color-surface-container-low);
+}
+
+.about-page__mv-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .about-page__mv-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.about-page__mv-item {
+  text-align: center;
+  padding: 32px;
+}
+
+.about-page__mv-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--color-primary-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  color: var(--color-primary);
+}
+
+.about-page__mv-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--color-dark);
+  margin: 0 0 12px;
+}
+
+.about-page__mv-text {
+  font-size: 0.9375rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Values */
+.about-page__values {
+  padding: 80px 20px;
+}
+
+.about-page__values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.about-page__value-item {
+  text-align: center;
+  padding: 24px;
+}
+
+.about-page__value-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--color-primary-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  color: var(--color-primary);
+}
+
+.about-page__value-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-dark);
+  margin: 0 0 8px;
+}
+
+.about-page__value-text {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Team */
+.about-page__team {
+  padding: 80px 20px;
+  background-color: var(--color-surface-container-low);
+}
+
+.about-page__team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-page__team-member {
+  text-align: center;
+}
+
+.about-page__team-photo {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 16px;
+  background-color: var(--color-sand);
+}
+
+.about-page__team-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-dark);
+  margin: 0 0 4px;
+}
+
+.about-page__team-role {
+  font-size: 0.875rem;
+  color: var(--color-gold);
+  margin: 0 0 8px;
+}
+
+.about-page__team-bio {
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+  line-height: 1.5;
+  margin: 0;
+}
