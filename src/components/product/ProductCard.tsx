@@ -156,7 +156,7 @@ export default function ProductCard({
       <div className="product-card__info">
         {/* Categoría */}
         <p className="product-card__category">
-          {CATEGORY_LABELS[product.category] ?? product.category}
+          {product.categories?.[0]?.name ?? (product.categories?.[0]?.value ? CATEGORY_LABELS[product.categories[0].value] : '')}
         </p>
 
         {/* Nombre */}

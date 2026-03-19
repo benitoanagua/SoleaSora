@@ -3,10 +3,11 @@
 import { useState, useMemo } from "react";
 import { Filter, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { Category } from "@/types";
 import "./CatalogFilters.css";
 
 interface Props {
-  categories: string[];
+  categories: Category[];
   priceRange: { min: number; max: number };
   sticky?: boolean;
   mobile?: boolean;
@@ -95,18 +96,18 @@ export default function CatalogFilters({
                   </label>
                   {categories.map((cat) => (
                     <label
-                      key={cat}
+                      key={cat._id}
                       className="category-option"
                     >
                       <input
                         type="radio"
                         name="category"
-                        checked={selectedCategory === cat}
-                        onChange={() => setSelectedCategory(cat)}
+                        checked={selectedCategory === cat.value}
+                        onChange={() => setSelectedCategory(cat.value)}
                         className="category-option__input"
                       />
                       <span className="category-option__label capitalize">
-                        {CATEGORY_LABELS[cat] || cat}
+                        {cat.name || CATEGORY_LABELS[cat.value] || cat.value}
                       </span>
                     </label>
                   ))}
@@ -210,18 +211,18 @@ export default function CatalogFilters({
           </label>
           {categories.map((cat) => (
             <label
-              key={cat}
+              key={cat._id}
               className="category-option"
             >
               <input
                 type="radio"
                 name="category-desktop"
-                checked={selectedCategory === cat}
-                onChange={() => setSelectedCategory(cat)}
+                checked={selectedCategory === cat.value}
+                onChange={() => setSelectedCategory(cat.value)}
                 className="category-option__input"
               />
               <span className="category-option__label capitalize">
-                {CATEGORY_LABELS[cat] || cat}
+                {cat.name || CATEGORY_LABELS[cat.value] || cat.value}
               </span>
             </label>
           ))}

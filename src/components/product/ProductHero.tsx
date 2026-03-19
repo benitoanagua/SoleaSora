@@ -278,7 +278,7 @@ export default function ProductHero({ product }: Props) {
         {/* Categoría y badges */}
         <div data-anim className="product-hero__category">
           <span className="product-hero__category-label">
-            {CATEGORY_LABELS[product.category] ?? product.category}
+            {product.categories?.map(c => c.name).join(' · ') ?? ''}
           </span>
         </div>
 
@@ -391,24 +391,19 @@ export default function ProductHero({ product }: Props) {
           )}
         </div>
 
-        {/* Tipos de piel */}
-        {product.skinTypes && product.skinTypes.length > 0 && (
-          <div 
-            data-anim 
+        {/* Tipo de piel */}
+        {product.skinType && (
+          <div
+            data-anim
             className="product-hero__skin-types"
           >
             <p className="product-hero__skin-types-label">
               Apto para
             </p>
             <div className="product-hero__skin-types-list">
-              {product.skinTypes.map((type) => (
-                <span
-                  key={type}
-                  className="product-hero__skin-type-tag"
-                >
-                  {SKIN_TYPE_LABELS[type] ?? type}
-                </span>
-              ))}
+              <span className="product-hero__skin-type-tag">
+                {product.skinType.name ?? (product.skinType.value ? SKIN_TYPE_LABELS[product.skinType.value] : '')}
+              </span>
             </div>
           </div>
         )}

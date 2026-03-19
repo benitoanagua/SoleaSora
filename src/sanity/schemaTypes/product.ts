@@ -65,23 +65,12 @@ export default defineType({
     }),
 
     defineField({
-      name: "category",
-      title: "Categoría",
-      type: "string",
-      options: {
-        list: [
-          { title: "Sérum", value: "serum" },
-          { title: "Crema", value: "cream" },
-          { title: "Limpiador", value: "cleanser" },
-          { title: "Protector", value: "sunscreen" },
-          { title: "Mascarilla", value: "mask" },
-          { title: "Contorno", value: "eye-cream" },
-          { title: "Tónico", value: "toner" },
-          { title: "Aceite", value: "oil" },
-        ],
-        layout: "radio",
-      },
-      validation: (Rule) => Rule.required(),
+      name: "categories",
+      title: "Categorías",
+      type: "array",
+      of: [defineArrayMember({ type: "reference", to: [{ type: "category" }] })],
+      description: "Selecciona las categorías del producto (puede ser varias)",
+      validation: (Rule) => Rule.min(1).error("Selecciona al menos una categoría"),
     }),
 
     defineField({
@@ -415,19 +404,8 @@ export default defineType({
       name: "skinTypes",
       title: "Tipos de piel",
       type: "array",
-      of: [defineArrayMember({ type: "string" })],
-      options: {
-        list: [
-          { title: "Todo tipo de piel", value: "all" },
-          { title: "Seca", value: "dry" },
-          { title: "Grasa", value: "oily" },
-          { title: "Mixta", value: "combination" },
-          { title: "Sensible", value: "sensitive" },
-          { title: "Madura", value: "mature" },
-          { title: "Con acné", value: "acne" },
-        ],
-        layout: "checkbox",
-      },
+      of: [defineArrayMember({ type: "reference", to: [{ type: "skinType" }] })],
+      description: "Selecciona los tipos de piel para los que está recomendado",
     }),
 
     defineField({

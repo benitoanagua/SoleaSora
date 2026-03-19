@@ -2,7 +2,7 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { QUERIES } from "@/sanity/lib/queries";
 import ProductGrid from "@/components/product/ProductGrid";
 import CatalogFilters from "@/components/catalog/CatalogFilters";
-import type { ProductCard as ProductCardType } from "@/types";
+import type { ProductCard as ProductCardType, Category } from "@/types";
 import "./page.css";
 
 export const metadata = {
@@ -11,9 +11,16 @@ export const metadata = {
 };
 
 // Obtener categorías únicas de los productos
-function getUniqueCategories(products: ProductCardType[]) {
-  const categories = new Set(products.map((p) => p.category).filter(Boolean));
-  return Array.from(categories);
+function getUniqueCategories(products: ProductCardType[]): Category[] {
+  const categoryMap = new Map<string, Category>();
+  products.forEach((p) => {
+    p.categories?.forEach((cat) => {
+      if (cat._id && !categoryMap.has(cat._id)) {
+        categoryMap.set(cat._id, cat);
+      }
+    });
+  });
+  return Array.from(categoryMap.values());
 }
 
 // Obtener rangos de precio

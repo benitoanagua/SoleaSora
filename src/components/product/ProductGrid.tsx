@@ -4,14 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ProductCard from "./ProductCard";
-import type { ProductCard as ProductCardType } from "@/types";
+import type { ProductCard as ProductCardType, Category } from "@/types";
 import "./ProductGrid.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface Props {
   products: ProductCardType[];
-  categories?: string[];
+  categories?: Category[];
 }
 
 export default function ProductGrid({ products, categories = [] }: Props) {
@@ -24,7 +24,7 @@ export default function ProductGrid({ products, categories = [] }: Props) {
       setVisibleProducts(products);
     } else {
       setVisibleProducts(
-        products.filter((p) => p.category === selectedCategory)
+        products.filter((p) => p.categories?.some(c => c.value === selectedCategory))
       );
     }
   }, [products, selectedCategory]);

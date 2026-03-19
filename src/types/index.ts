@@ -51,7 +51,7 @@ export interface HowToUseStep {
   instruction: string;
 }
 
-export type SkinType =
+export type SkinTypeValue =
   | "all"
   | "dry"
   | "oily"
@@ -60,7 +60,7 @@ export type SkinType =
   | "mature"
   | "acne";
 
-export type ProductCategory =
+export type ProductCategoryValue =
   | "serum"
   | "cream"
   | "cleanser"
@@ -70,13 +70,33 @@ export type ProductCategory =
   | "toner"
   | "oil";
 
+// Documentos de referencia
+export interface SkinType {
+  _id: string;
+  name: string;
+  slug: { current: string };
+  value: SkinTypeValue;
+  description?: string;
+  order?: number;
+}
+
+export interface Category {
+  _id: string;
+  name: string;
+  slug: { current: string };
+  value: ProductCategoryValue;
+  description?: string;
+  icon?: { asset: ImageAsset };
+  order?: number;
+}
+
 // Producto para el catálogo (campos mínimos)
 export interface ProductCard {
   _id: string;
   name: string;
   slug: { current: string };
   tagline: string;
-  category: ProductCategory;
+  categories?: Category[];
   price: number;
   compareAtPrice?: number;
   inStock: boolean;
@@ -87,7 +107,7 @@ export interface ProductCard {
     alt?: string;
   };
   shortDescription: string;
-  skinTypes?: SkinType[];
+  skinType?: SkinType;
 }
 
 // Producto completo para la página de detalle

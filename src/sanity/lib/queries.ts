@@ -8,7 +8,12 @@ export const QUERIES = {
       name,
       slug,
       tagline,
-      category,
+      categories[]-> {
+        _id,
+        name,
+        slug,
+        value
+      },
       price,
       compareAtPrice,
       inStock,
@@ -27,7 +32,12 @@ export const QUERIES = {
         alt
       },
       shortDescription,
-      skinTypes
+      skinType-> {
+        _id,
+        name,
+        slug,
+        value
+      }
     }
   `,
 
@@ -38,12 +48,30 @@ export const QUERIES = {
       name,
       slug,
       tagline,
-      category,
+      categories[]-> {
+        _id,
+        name,
+        slug,
+        value,
+        description,
+        icon {
+          asset-> {
+            _id,
+            url
+          }
+        }
+      },
       price,
       compareAtPrice,
       inStock,
       volume,
-      skinTypes,
+      skinType-> {
+        _id,
+        name,
+        slug,
+        value,
+        description
+      },
       stripeProductId,
 
       mainImage {
@@ -171,6 +199,11 @@ export const QUERIES = {
       name,
       slug,
       tagline,
+      categories[]-> {
+        _id,
+        name,
+        value
+      },
       price,
       mainImage {
         asset-> {
@@ -189,6 +222,34 @@ export const QUERIES = {
   // Slugs de todos los productos (para generateStaticParams)
   ALL_SLUGS: /* groq */ `
     *[_type == "product"]{ "slug": slug.current }
+  `,
+
+  // Todas las categorías
+  ALL_CATEGORIES: /* groq */ `
+    *[_type == "category"] | order(order asc) {
+      _id,
+      name,
+      slug,
+      value,
+      description,
+      icon {
+        asset-> {
+          _id,
+          url
+        }
+      }
+    }
+  `,
+
+  // Todos los tipos de piel
+  ALL_SKIN_TYPES: /* groq */ `
+    *[_type == "skinType"] | order(order asc) {
+      _id,
+      name,
+      slug,
+      value,
+      description
+    }
   `,
 };
 
