@@ -10,8 +10,14 @@ import gsap from "gsap";
 import "./CartDrawer.css";
 
 export default function CartDrawer() {
-  const { items, isOpen, closeCart, removeItem, updateQuantity, total, count } =
-    useCart();
+  const items = useCart((state) => state.items);
+  const isOpen = useCart((state) => state.isOpen);
+  const closeCart = useCart((state) => state.closeCart);
+  const removeItem = useCart((state) => state.removeItem);
+  const updateQuantity = useCart((state) => state.updateQuantity);
+
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const count = items.reduce((sum, item) => sum + item.quantity, 0);
   
   const panelRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);

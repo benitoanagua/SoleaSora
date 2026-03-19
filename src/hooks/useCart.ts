@@ -51,14 +51,6 @@ export const useCart = create<CartStore>()(
       clearCart: () => set({ items: [] }),
       openCart: () => set({ isOpen: true }),
       closeCart: () => set({ isOpen: false }),
-
-      get total() {
-        return get().items.reduce((sum, i) => sum + i.price * i.quantity, 0);
-      },
-
-      get count() {
-        return get().items.reduce((sum, i) => sum + i.quantity, 0);
-      },
     }),
     {
       name: "solea-sora-cart", // clave en localStorage

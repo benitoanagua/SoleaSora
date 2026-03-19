@@ -12,7 +12,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
-  const { openCart, count } = useCart();
+  const openCart = useCart((state) => state.openCart);
+  const items = useCart((state) => state.items);
+  const count = items.reduce((sum, item) => sum + item.quantity, 0);
 
   // Detectar scroll con threshold de 80px según spec
   useEffect(() => {

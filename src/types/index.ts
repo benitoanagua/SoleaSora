@@ -161,6 +161,4 @@ export interface CartStore {
   clearCart: () => void;
   openCart: () => void;
   closeCart: () => void;
-  total: number;
-  count: number;
 }
