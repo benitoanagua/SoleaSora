@@ -1,8 +1,26 @@
 // src/types/index.ts
 
+export interface ImageMetadata {
+  _type?: string;
+  lqip?: string;
+  palette?: any;
+  dimensions?: {
+    _type?: string;
+    aspectRatio?: number;
+    height: number;
+    width: number;
+  };
+}
+
+export interface ImageAsset {
+  _id: string;
+  url: string;
+  metadata?: ImageMetadata;
+}
+
 export interface ProductImage {
-  asset: { url: string; metadata?: { lqip?: string; palette?: any } };
-  alt: string;
+  asset: ImageAsset;
+  alt?: string;
 }
 
 export interface ProductImage360 {
@@ -14,13 +32,13 @@ export interface Ingredient {
   name: string;
   scientificName?: string;
   benefit: string;
-  icon?: { asset: { url: string } };
+  icon?: { asset: ImageAsset };
 }
 
 export interface StorySection {
   headline: string;
   body?: string;
-  accentImage?: { asset: { url: string }; alt?: string };
+  accentImage?: { asset: ImageAsset; alt?: string };
 }
 
 export interface Benefit {
@@ -64,7 +82,10 @@ export interface ProductCard {
   inStock: boolean;
   isNew?: boolean;
   isFeatured?: boolean;
-  mainImage: ProductImage;
+  mainImage: {
+    asset: ImageAsset;
+    alt?: string;
+  };
   shortDescription: string;
   skinTypes?: SkinType[];
 }
@@ -73,18 +94,37 @@ export interface ProductCard {
 export interface Product extends ProductCard {
   volume?: string;
   stripeProductId?: string;
-  galleryImages?: ProductImage[];
+  galleryImages?: Array<{
+    asset: ImageAsset;
+    alt?: string;
+  }>;
   images360?: ProductImage360[];
   videoUrl?: string;
-  storySections?: StorySection[];
-  ingredients?: Ingredient[];
+  storySections?: Array<{
+    headline: string;
+    body?: string;
+    accentImage?: {
+      asset: ImageAsset;
+      alt?: string;
+    };
+  }>;
+  ingredients?: Array<{
+    name: string;
+    scientificName?: string;
+    benefit: string;
+    icon?: {
+      asset: ImageAsset;
+    };
+  }>;
   fullIngredientList?: string;
   benefits?: Benefit[];
   howToUse?: HowToUseStep[];
   seo?: {
     metaTitle?: string;
     metaDescription?: string;
-    ogImage?: { asset: { url: string } };
+    ogImage?: {
+      asset: ImageAsset;
+    };
   };
 }
 
@@ -97,8 +137,8 @@ export interface SiteSettings {
   shippingMessage?: string;
   instagramUrl?: string;
   whatsappNumber?: string;
-  logo?: { asset: { url: string } };
-  logoAlt?: { asset: { url: string } };
+  logo?: ProductImage;
+  logoAlt?: ProductImage;
 }
 
 // Carrito

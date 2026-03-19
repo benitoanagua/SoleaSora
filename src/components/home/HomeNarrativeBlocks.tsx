@@ -100,16 +100,19 @@ function NarrativeBlockItem({
       );
 
       if (imageRef.current) {
-        gsap.to(imageRef.current.querySelector("img"), {
-          yPercent: 15,
-          ease: "none",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
+        const imgElement = imageRef.current.querySelector("img");
+        if (imgElement) {
+          gsap.to(imgElement, {
+            yPercent: 15,
+            ease: "none",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        }
       }
     }, containerRef);
 

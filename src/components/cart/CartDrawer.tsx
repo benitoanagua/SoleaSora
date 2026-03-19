@@ -120,62 +120,65 @@ export default function CartDrawer() {
             <EmptyCartState onClose={closeCart} />
           ) : (
             <ul className="cart-drawer__items-list">
-              {items.map((item, index) => (
-                <li 
-                  key={item._id} 
-                  className="cart-drawer__item"
-                  style={{ animationDelay: `${index * 50}ms` }}
-                >
-                  {/* Imagen del producto */}
-                  <Link
-                    href={`/producto/${item.slug.current}`}
-                    onClick={closeCart}
-                    className="cart-drawer__item-image-wrapper"
+              {items.map((item, index) => {
+                const imageUrl = item.mainImage?.asset?.url ? `${item.mainImage.asset.url.startsWith('//') ? 'https:' : ''}${item.mainImage.asset.url}?w=96&h=96&fit=crop` : null;
+                
+                return (
+                  <li 
+                    key={item._id} 
+                    className="cart-drawer__item"
+                    style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    {item.mainImage?.asset?.url && (
-                      <Image
-                        src={item.mainImage.asset.url}
-                        alt={item.mainImage.alt || item.name}
-                        width={96}
-                        height={96}
-                        className="cart-drawer__item-image"
-                      />
-                    )}
-                  </Link>
+                    {/* Imagen del producto */}
+                    <Link
+                      href={`/producto/${item.slug.current}`}
+                      onClick={closeCart}
+                      className="cart-drawer__item-image-wrapper"
+                    >
+                      {imageUrl && (
+                        <Image
+                          src={imageUrl}
+                          alt={item.mainImage.alt || item.name}
+                          width={96}
+                          height={96}
+                          className="cart-drawer__item-image"
+                        />
+                      )}
+                    </Link>
 
-                  {/* Info del producto */}
-                  <div className="cart-drawer__item-info">
-                    {/* Header con nombre y botón eliminar */}
-                    <div className="cart-drawer__item-header">
-                      <Link
-                        href={`/producto/${item.slug.current}`}
-                        onClick={closeCart}
-                        className="cart-drawer__item-name"
-                      >
-                        {item.name}
-                      </Link>
-                      <button
-                        onClick={() => removeItem(item._id)}
-                        aria-label={`Eliminar ${item.name} del carrito`}
-                        className="cart-drawer__item-remove"
-                      >
-                        <Trash2 size={14} strokeWidth={1.5} />
-                      </button>
-                    </div>
-
-                    {/* Precio unitario */}
-                    <p className="cart-drawer__item-unit-price">
-                      {formatPrice(item.price)} c/u
-                    </p>
-
-                    {/* Controles de cantidad y precio total */}
-                    <div className="cart-drawer__item-controls">
-                      {/* Selector de cantidad */}
-                      <div className="cart-drawer__quantity-selector">
+                    {/* Info del producto */}
+                    <div className="cart-drawer__item-info">
+                      {/* Header con nombre y botón eliminar */}
+                      <div className="cart-drawer__item-header">
+                        <Link
+                          href={`/producto/${item.slug.current}`}
+                          onClick={closeCart}
+                          className="cart-drawer__item-name"
+                        >
+                          {item.name}
+                        </Link>
                         <button
-                          onClick={() =>
-                            updateQuantity(item._id, Math.max(1, item.quantity - 1))
-                          }
+                          onClick={() => removeItem(item._id)}
+                          aria-label={`Eliminar ${item.name} del carrito`}
+                          className="cart-drawer__item-remove"
+                        >
+                          <Trash2 size={14} strokeWidth={1.5} />
+                        </button>
+                      </div>
+
+                      {/* Precio unitario */}
+                      <p className="cart-drawer__item-unit-price">
+                        {formatPrice(item.price)} c/u
+                      </p>
+
+                      {/* Controles de cantidad y precio total */}
+                      <div className="cart-drawer__item-controls">
+                        {/* Selector de cantidad */}
+                        <div className="cart-drawer__quantity-selector">
+                          <button
+                            onClick={() =>
+                              updateQuantity(item._id, Math.max(1, item.quantity - 1))
+                            }
                           aria-label="Reducir cantidad"
                           disabled={item.quantity <= 1}
                           className="cart-drawer__quantity-btn"
@@ -203,7 +206,8 @@ export default function CartDrawer() {
                     </div>
                   </div>
                 </li>
-              ))}
+              );
+            })}
             </ul>
           )}
         </div>

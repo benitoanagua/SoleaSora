@@ -27,12 +27,23 @@ export default function ProductHero({ product }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mobileCTARef = useRef<HTMLDivElement>(null);
 
-  const images = [product.mainImage, ...(product.galleryImages ?? [])].filter(
-    Boolean,
-  );
+  // Combine main image and gallery images into a single array
+  const images = [
+    { asset: product.mainImage?.asset, alt: product.mainImage?.alt },
+    ...(product.galleryImages?.map((img) => ({
+      asset: img.asset,
+      alt: img.alt
+    })) ?? [])
+  ].filter(Boolean);
 
   // Detectar si tiene imágenes 360 (múltiples imágenes en secuencia)
   const has360 = images.length >= 8;
+
+  // Generar URLs de imágenes desde asset
+  const imageUrls = images.map((img, i) => ({
+    url: img?.asset?.url ? `${img.asset.url.startsWith('//') ? 'https:' : ''}${img.asset.url}?w=1200&h=1200&fit=crop` : null,
+    alt: img?.alt || product.name
+  }));
 
   // Animación de entrada
   useEffect(() => {
@@ -133,10 +144,10 @@ export default function ProductHero({ product }: Props) {
       >
         {/* Visor principal */}
         <div className="product-hero__main-image-wrapper">
-          {images[activeImg]?.asset?.url && (
+          {imageUrls[activeImg]?.url && (
             <Image
-              src={images[activeImg].asset.url}
-              alt={images[activeImg].alt ?? product.name}
+              src={imageUrls[activeImg].url}
+              alt={imageUrls[activeImg].alt ?? product.name}
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -190,7 +201,7 @@ export default function ProductHero({ product }: Props) {
         {/* Thumbnails (solo desktop) */}
         {images.length > 1 && !has360 && (
           <div className="product-hero__thumbnails-desktop">
-            {images.map((img, i) => (
+            {imageUrls.map((imageUrl, i) => (
               <button
                 key={i}
                 onClick={() => setActiveImg(i)}
@@ -201,10 +212,10 @@ export default function ProductHero({ product }: Props) {
                     : "product-hero__thumbnail-button--inactive"
                 )}
               >
-                {img?.asset?.url && (
+                {imageUrl?.url && (
                   <Image
-                    src={img.asset.url}
-                    alt={img.alt ?? ""}
+                    src={imageUrl.url}
+                    alt={imageUrl.alt ?? ""}
                     width={80}
                     height={80}
                     className="product-hero__thumbnail-image"
@@ -218,7 +229,7 @@ export default function ProductHero({ product }: Props) {
         {/* Thumbnails mobile */}
         {images.length > 1 && !has360 && (
           <div className="product-hero__thumbnails-mobile">
-            {images.map((img, i) => (
+            {imageUrls.map((imageUrl, i) => (
               <button
                 key={i}
                 onClick={() => setActiveImg(i)}
@@ -229,10 +240,10 @@ export default function ProductHero({ product }: Props) {
                     : "product-hero__thumbnail-button--inactive"
                 )}
               >
-                {img?.asset?.url && (
+                {imageUrl?.url && (
                   <Image
-                    src={img.asset.url}
-                    alt={img.alt ?? ""}
+                    src={imageUrl.url}
+                    alt={imageUrl.alt ?? ""}
                     width={64}
                     height={64}
                     className="product-hero__thumbnail-image"

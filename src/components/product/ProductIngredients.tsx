@@ -26,36 +26,40 @@ export default function ProductIngredients({ ingredients }: Props) {
         </div>
 
         <div className="product-ingredients__grid">
-          {ingredients.map((ing, i) => (
-            <div
-              key={i}
-              data-reveal="up"
-              data-delay={`${i * 0.08}`}
-              className="product-ingredients__card"
-            >
-              {ing.icon?.asset?.url && (
-                <img
-                  src={ing.icon.asset.url}
-                  alt={ing.name}
-                  className="product-ingredients__icon"
-                />
-              )}
-              <h3
-                className="product-ingredients__name"
-                style={{ fontFamily: "var(--font-display)" }}
+          {ingredients.map((ing, i) => {
+            const iconUrl = ing.icon?.asset?.url ? `${ing.icon.asset.url.startsWith('//') ? 'https:' : ''}${ing.icon.asset.url}?w=120&h=120&fit=crop` : null;
+            
+            return (
+              <div
+                key={i}
+                data-reveal="up"
+                data-delay={`${i * 0.08}`}
+                className="product-ingredients__card"
               >
-                {ing.name}
-              </h3>
-              {ing.scientificName && (
-                <p className="product-ingredients__scientific">
-                  {ing.scientificName}
+                {iconUrl && (
+                  <img
+                    src={iconUrl}
+                    alt={ing.name}
+                    className="product-ingredients__icon"
+                  />
+                )}
+                <h3
+                  className="product-ingredients__name"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  {ing.name}
+                </h3>
+                {ing.scientificName && (
+                  <p className="product-ingredients__scientific">
+                    {ing.scientificName}
+                  </p>
+                )}
+                <p className="product-ingredients__benefit">
+                  {ing.benefit}
                 </p>
-              )}
-              <p className="product-ingredients__benefit">
-                {ing.benefit}
-              </p>
-            </div>
-          ))}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,9 +1,9 @@
 // Todas las queries GROQ del proyecto
 
 export const QUERIES = {
-  // Todos los productos para el catálogo
+  // Todos los productos para el catálogo (incluye sin stock)
   ALL_PRODUCTS: /* groq */ `
-    *[_type == "product" && inStock == true] | order(order asc) {
+    *[_type == "product"] | order(order asc) {
       _id,
       name,
       slug,
@@ -14,8 +14,16 @@ export const QUERIES = {
       inStock,
       isNew,
       isFeatured,
-      "mainImage": mainImage{
-        asset->{url, metadata{lqip, palette}},
+      mainImage {
+        asset-> {
+          _id,
+          url,
+          metadata {
+            lqip,
+            palette,
+            dimensions
+          }
+        },
         alt
       },
       shortDescription,
@@ -38,32 +46,66 @@ export const QUERIES = {
       skinTypes,
       stripeProductId,
 
-      "mainImage": mainImage{
-        asset->{url, metadata{lqip, palette, dimensions}},
+      mainImage {
+        asset-> {
+          _id,
+          url,
+          metadata {
+            lqip,
+            palette,
+            dimensions
+          }
+        },
         alt
       },
-      "galleryImages": galleryImages[]{
-        asset->{url, metadata{lqip}},
+      galleryImages[] {
+        asset-> {
+          _id,
+          url,
+          metadata {
+            lqip,
+            dimensions
+          }
+        },
         alt
       },
-      "images360": images360[] | order(frame asc) {
+      images360[] | order(frame asc) {
         frame,
         "url": asset->url
       },
       videoUrl,
 
       shortDescription,
-      storySections[]{
+      storySections[] {
         headline,
         body,
-        "accentImage": accentImage{asset->{url}, alt}
+        accentImage {
+          asset-> {
+            _id,
+            url,
+            metadata {
+              lqip,
+              dimensions
+            }
+          },
+          alt
+        }
       },
 
-      ingredients[]{
+      ingredients[] {
         name,
         scientificName,
         benefit,
-        "icon": icon{asset->{url}}
+        icon {
+          asset-> {
+            _id,
+            url,
+            metadata {
+              lqip,
+              dimensions
+            }
+          }
+        }
       },
       fullIngredientList,
 
@@ -74,7 +116,16 @@ export const QUERIES = {
       seo{
         metaTitle,
         metaDescription,
-        "ogImage": ogImage{asset->{url}}
+        ogImage {
+          asset-> {
+            _id,
+            url,
+            metadata {
+              lqip,
+              dimensions
+            }
+          }
+        }
       }
     }
   `,
@@ -90,8 +141,26 @@ export const QUERIES = {
       shippingMessage,
       instagramUrl,
       whatsappNumber,
-      "logo":    logo{asset->{url}},
-      "logoAlt": logoAlt{asset->{url}}
+      logo {
+        asset-> {
+          _id,
+          url,
+          metadata {
+            lqip,
+            dimensions
+          }
+        }
+      },
+      logoAlt {
+        asset-> {
+          _id,
+          url,
+          metadata {
+            lqip,
+            dimensions
+          }
+        }
+      }
     }
   `,
 
@@ -103,7 +172,17 @@ export const QUERIES = {
       slug,
       tagline,
       price,
-      "mainImage": mainImage{asset->{url, metadata{lqip}}, alt}
+      mainImage {
+        asset-> {
+          _id,
+          url,
+          metadata {
+            lqip,
+            dimensions
+          }
+        },
+        alt
+      }
     }
   `,
 

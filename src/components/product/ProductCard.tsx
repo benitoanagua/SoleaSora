@@ -47,6 +47,14 @@ export default function ProductCard({
       )
     : 0;
 
+  // Generar URL de imagen principal desde asset
+  const mainImageUrl = product.mainImage?.asset?.url
+    ? `${product.mainImage.asset.url.startsWith('//') ? 'https:' : ''}${product.mainImage.asset.url}?w=800&h=1000&fit=crop`
+    : null;
+
+  // Placeholder cuando no hay imagen
+  const showPlaceholder = !mainImageUrl && !imageLoaded;
+
   return (
     <Link
       href={`/producto/${product.slug.current}`}
@@ -56,35 +64,46 @@ export default function ProductCard({
     >
       {/* Contenedor de Imagen */}
       <div className={`product-card__image-wrapper ${isHovered && !isTouch ? 'product-card__image-wrapper--hovered' : ''}`}>
-        {/* Skeleton loading */}
-        {!imageLoaded && (
+        {/* Placeholder cuando no hay imagen */}
+        {showPlaceholder && (
+          <div className="product-card__skeleton product-card__skeleton--no-anim">
+            <div className="product-card__placeholder">
+              <svg
+                className="product-card__placeholder-icon"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1}
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+              <span className="product-card__placeholder-text">
+                Imagen no disponible
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Skeleton loading cuando hay imagen pero aún no carga */}
+        {!imageLoaded && !showPlaceholder && (
           <div className="product-card__skeleton" />
         )}
 
         {/* Imagen principal */}
-        {product.mainImage?.asset?.url && (
-          <>
-            <Image
-              src={product.mainImage.asset.url}
-              alt={product.mainImage.alt || product.name}
-              fill
-              priority={priority}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className={`product-card__image ${isHovered && !isTouch ? 'product-card__image--hovered' : ''}`}
-              onLoad={() => setImageLoaded(true)}
-            />
-
-            {/* Imagen secundaria en hover (crossfade) */}
-            {product.galleryImages?.[0]?.asset?.url && (
-              <Image
-                src={product.galleryImages[0].asset.url}
-                alt={`${product.name} - detalle`}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className={`product-card__image-secondary ${isHovered && !isTouch ? 'product-card__image-secondary--visible' : ''}`}
-              />
-            )}
-          </>
+        {mainImageUrl && (
+          <Image
+            src={mainImageUrl}
+            alt={product.mainImage?.alt || product.name}
+            fill
+            priority={priority}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className={`product-card__image ${isHovered && !isTouch ? 'product-card__image--hovered' : ''}`}
+            onLoad={() => setImageLoaded(true)}
+          />
         )}
 
         {/* Badges */}
