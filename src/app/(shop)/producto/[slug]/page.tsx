@@ -8,6 +8,7 @@ import ProductIngredients from "@/components/product/ProductIngredients";
 import ProductBenefits from "@/components/product/ProductBenefits";
 import ProductHowToUse from "@/components/product/ProductHowToUse";
 import type { Product } from "@/types";
+import "./page.css";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -63,7 +64,7 @@ export default async function ProductPage({ params }: Props) {
   if (!product) notFound();
 
   return (
-    <div className="min-h-screen">
+    <div className="product-page">
       <ProductHero product={product} />
       <ProductStory sections={product.storySections ?? []} />
       <ProductIngredients ingredients={product.ingredients ?? []} />

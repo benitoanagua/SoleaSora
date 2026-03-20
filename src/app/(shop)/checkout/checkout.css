@@ -181,6 +181,10 @@
   animation: spin 1s linear infinite;
 }
 
+.checkout-page__loader {
+  animation: spin 1s linear infinite;
+}
+
 .checkout-page__link {
   display: block;
   text-align: center;

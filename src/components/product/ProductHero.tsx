@@ -151,7 +151,7 @@ export default function ProductHero({ product }: Props) {
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover transition-opacity duration-300 select-none"
+              className="product-hero__main-image"
               draggable={false}
             />
           )}

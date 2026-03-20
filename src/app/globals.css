@@ -75,9 +75,11 @@
   --color-dark: var(--color-on-background);
   --color-brown-deep: #2d2a26;
   --color-muted: var(--color-secondary);
+  --color-taupe: var(--color-secondary);   /* Alias para textos secundarios */
   --color-gold: var(--color-primary);
   --color-gold-hover: var(--color-primary-container);
   --color-bronze: var(--color-tertiary);
+  --color-success: #6b8c6e;               /* Verde oliva suave - envío gratis, confirmaciones */
 }
 
 [data-theme='dark'] {
@@ -152,9 +154,11 @@
   --color-dark: var(--color-on-background);
   --color-brown-deep: #3d3a36;
   --color-muted: var(--color-secondary);
+  --color-taupe: var(--color-secondary);   /* Alias para textos secundarios */
   --color-gold: var(--color-primary);
   --color-gold-hover: #e0c98a;
   --color-bronze: var(--color-tertiary);
+  --color-success: #8aad8d;               /* Verde oliva claro - dark mode */
 }
 
 /* ============================================

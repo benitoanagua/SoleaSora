@@ -42,6 +42,12 @@
   overflow: hidden;
 }
 
+.product-hero__main-image {
+  object-fit: cover;
+  transition: opacity var(--duration-normal);
+  user-select: none;
+}
+
 .product-hero__360-indicator {
   position: absolute;
   inset: 0;

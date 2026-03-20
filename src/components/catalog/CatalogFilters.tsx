@@ -49,7 +49,7 @@ export default function CatalogFilters({
         {/* Drawer de filtros */}
         <div
           className={cn(
-            "catalog-filters-drawer md:hidden",
+            "catalog-filters-drawer",
             isOpen ? "catalog-filters-drawer--open" : "catalog-filters-drawer--closed"
           )}
         >
@@ -106,7 +106,7 @@ export default function CatalogFilters({
                         onChange={() => setSelectedCategory(cat.value)}
                         className="category-option__input"
                       />
-                      <span className="category-option__label capitalize">
+                      <span className="category-option__label">
                         {cat.name || CATEGORY_LABELS[cat.value] || cat.value}
                       </span>
                     </label>
@@ -188,7 +188,7 @@ export default function CatalogFilters({
       )}
     >
       <div className="catalog-filters__header">
-        <Filter size={16} strokeWidth={1.5} className="text-[var(--color-secondary)]" />
+        <Filter size={16} strokeWidth={1.5} className="catalog-filters__icon" />
         <h2 className="catalog-filters__title">
           Filtros
         </h2>
@@ -221,7 +221,7 @@ export default function CatalogFilters({
                 onChange={() => setSelectedCategory(cat.value)}
                 className="category-option__input"
               />
-              <span className="category-option__label capitalize">
+              <span className="category-option__label">
                 {cat.name || CATEGORY_LABELS[cat.value] || cat.value}
               </span>
             </label>

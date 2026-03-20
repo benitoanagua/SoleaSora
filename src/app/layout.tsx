@@ -40,7 +40,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${cormorant.variable} ${dmSans.variable}`}>
-      <body className="bg-cream text-dark antialiased">
+      <body>
         <SmoothScrollProvider>
           {children}
           <SanityLive />

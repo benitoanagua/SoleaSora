@@ -114,7 +114,7 @@ export default function CheckoutPage() {
         >
           {loading ? (
             <>
-              <Loader2 size={20} className="animate-spin" />
+              <Loader2 size={20} className="checkout-page__loader" />
               <span>Procesando...</span>
             </>
           ) : (

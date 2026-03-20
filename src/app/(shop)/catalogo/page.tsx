@@ -104,9 +104,9 @@ export default async function CatalogoPage() {
             {/* Contador de productos */}
             <div className="catalog-page__header-bar">
               <p className="catalog-page__count">
-                <span className="font-medium">
+                <strong>
                   {products?.length || 0}
-                </span>{" "}
+                </strong>{" "}
                 productos
               </p>
             </div>
