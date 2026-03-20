@@ -205,6 +205,9 @@ export const QUERIES = {
         value
       },
       price,
+      compareAtPrice,
+      inStock,
+      isNew,
       mainImage {
         asset-> {
           _id,
