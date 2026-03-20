@@ -34,21 +34,35 @@ interface HomePageData {
   }>;
 }
 
+interface SiteSettingsData {
+  heroHeadline?: string;
+  heroSubline?: string;
+  heroVideo?: string;
+}
+
 export default async function HomePage() {
-  const [featuredResult, homeResult] = await Promise.all([
+  const [featuredResult, homeResult, siteSettingsResult] = await Promise.all([
     sanityFetch({ query: QUERIES.FEATURED_PRODUCTS }),
     sanityFetch({ query: QUERIES.HOME_PAGE }),
+    sanityFetch({ query: QUERIES.SITE_SETTINGS }),
   ]);
 
   const featured = featuredResult.data as ProductCard[];
   const home = homeResult.data as HomePageData;
+  const siteSettings = siteSettingsResult.data as SiteSettingsData;
+
+  const heroHeadline = siteSettings?.heroHeadline || home?.hero?.headline;
+  const heroSubline = siteSettings?.heroSubline || home?.hero?.subheadline;
+  const heroVideo = siteSettings?.heroVideo || home?.hero?.backgroundVideo;
 
   return (
     <>
       {/* Hero */}
       <HomeHero
-        headline={home?.hero?.headline}
-        subheadline={home?.hero?.subheadline}
+        headline={heroHeadline}
+        subheadline={heroSubline}
+        backgroundImage={home?.hero?.backgroundImage}
+        backgroundVideo={heroVideo}
         cta={home?.hero?.cta}
       />
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -31,6 +31,24 @@ export default function HomeHero({
   const subRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+  const [videoFailed, setVideoFailed] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !backgroundVideo) return;
+
+    video.load();
+
+    const tryPlay = async () => {
+      try {
+        await video.play();
+      } catch {
+        // If autoplay is blocked, keep the element mounted and let controls remain hidden.
+      }
+    };
+
+    void tryPlay();
+  }, [backgroundVideo]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -126,22 +144,31 @@ export default function HomeHero({
       />
 
       {/* Video de fondo (opcional) */}
-      {backgroundVideo && (
+      {backgroundVideo && !videoFailed && (
         <div className="home-hero__video-container">
           <video
             ref={videoRef}
-            src={backgroundVideo}
             autoPlay
             loop
             muted
             playsInline
+            preload="metadata"
             className="home-hero__video"
-          />
+            aria-hidden="true"
+            onError={() => setVideoFailed(true)}
+            onLoadedData={() => {
+              if (videoRef.current) {
+                void videoRef.current.play().catch(() => undefined);
+              }
+            }}
+          >
+            <source src={backgroundVideo} type="video/mp4" />
+          </video>
         </div>
       )}
 
       {/* Imagen de fondo alternativa */}
-      {backgroundImage?.asset?.url && !backgroundVideo && (
+      {backgroundImage?.asset?.url && (!backgroundVideo || videoFailed) && (
         <div
           className="home-hero__image-bg"
           style={{
