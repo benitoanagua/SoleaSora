@@ -1,36 +1,142 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Solea Sora
 
-## Getting Started
+Ecommerce editorial de skincare construido con Next.js, Sanity y Stripe.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 + App Router
+- React 19
+- TypeScript
+- Sanity CMS + Sanity Studio
+- Stripe Checkout
+- GSAP para animaciones
+- Zustand para carrito
+
+## Funcionalidades
+
+- Homepage con hero multimedia y bloques editoriales
+- Catalogo de productos conectado a Sanity
+- Paginas de detalle de producto
+- Carrito lateral
+- Checkout con Stripe
+- Webhook base para eventos de pago
+- Sanity Studio embebido en `/studio`
+
+## Requisitos
+
+- Node.js 20+
+- pnpm recomendado
+- Proyecto de Sanity configurado
+- Cuenta de Stripe para checkout
+
+## Instalacion
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Crea un archivo `.env.local` con estas variables:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+NEXT_PUBLIC_SANITY_PROJECT_ID=tu_project_id
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SANITY_API_VERSION=2026-03-18
+NEXT_PUBLIC_SANITY_API_TOKEN=tu_token_si_hace_falta
 
-## Learn More
+STRIPE_SECRET_KEY=sk_test_xxx
+STRIPE_WEBHOOK_SECRET=whsec_xxx
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Desarrollo
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+App: `http://localhost:3000`  
+Studio: `http://localhost:3000/studio`
 
-## Deploy on Vercel
+## Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm dev
+pnpm build
+pnpm start
+pnpm lint
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Estructura
+
+```text
+src/
+  app/
+    (shop)/               Rutas publicas de la tienda
+    api/checkout/         Creacion de sesion de Stripe
+    api/webhooks/stripe/  Webhook de Stripe
+    studio/               Sanity Studio embebido
+  components/
+    home/                 Secciones de homepage
+    product/              UI de catalogo y producto
+    cart/                 Carrito lateral
+    layout/               Navbar, footer, wrappers
+  hooks/                  Estado del carrito, scroll, tema
+  lib/                    Utilidades generales
+  sanity/
+    lib/                  Cliente y queries GROQ
+    schemaTypes/          Esquemas del CMS
+```
+
+## Sanity
+
+El proyecto usa contenido desde:
+
+- `siteSettings` para configuracion global
+- `homePage` para bloques de homepage
+- `product` para catalogo y paginas de producto
+- `aboutPage`, `contactPage`, `legalPage`, `blogPost`, `faq` para paginas editoriales
+
+Archivos principales:
+
+- [`src/sanity/lib/queries.ts`](/home/yuyay/Code/benitoanagua/solea-sora/src/sanity/lib/queries.ts)
+- [`src/sanity/schemaTypes/`](/home/yuyay/Code/benitoanagua/solea-sora/src/sanity/schemaTypes)
+- [`sanity.config.ts`](/home/yuyay/Code/benitoanagua/solea-sora/sanity.config.ts)
+
+## Stripe
+
+Checkout:
+
+- Endpoint: `/api/checkout`
+- Verifica productos y precios consultando Sanity
+- Crea una `Checkout Session` en Stripe
+
+Webhook:
+
+- Endpoint: `/api/webhooks/stripe`
+- Soporta base para `checkout.session.completed` y eventos de payment intent
+
+Para probar webhooks en local:
+
+```bash
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
+```
+
+## Flujo de contenido
+
+1. Configuras productos y ajustes globales en Sanity Studio.
+2. Next.js consume el contenido con GROQ usando `next-sanity`.
+3. El usuario agrega productos al carrito.
+4. `/api/checkout` crea la sesion de pago en Stripe.
+5. Stripe redirige a las paginas de exito o cancelacion.
+6. El webhook recibe los eventos de pago.
+
+## Notas
+
+- El hero de la homepage acepta una URL directa a un archivo `.mp4` desde `siteSettings.heroVideo`.
+- Las imagenes remotas de Sanity estan habilitadas en [`next.config.ts`](/home/yuyay/Code/benitoanagua/solea-sora/next.config.ts).
+- El proyecto usa `useCdn: true` en el cliente publico de Sanity y `useCdn: false` para operaciones sensibles del checkout.
+
+## Estado actual
+
+Base funcional para tienda de skincare con CMS y pagos integrados. Faltan piezas tipicas de produccion como persistencia de ordenes, manejo de inventario post-pago, emails transaccionales y endurecimiento del webhook.
