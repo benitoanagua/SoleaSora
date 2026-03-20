@@ -22,8 +22,7 @@
 .catalog-page__header-bg {
   position: absolute;
   inset: 0;
-  opacity: 0.4;
-  background: radial-gradient(ellipse 80% 40% at 50% 0%, #ede8df 0%, transparent 70%);
+  background: radial-gradient(ellipse 80% 40% at 50% 0%, var(--color-gradient-start) 0%, var(--color-gradient-end) 70%);
 }
 
 .catalog-page__header-content {

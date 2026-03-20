@@ -126,10 +126,7 @@ function NarrativeBlockItem({
     >
       {/* Fondo decorativo */}
       <div
-        className="home-narrative__bg"
-        style={{
-          background: `radial-gradient(ellipse ${isEven ? "60% 40% at 80% 50%" : "60% 40% at 20% 50%"}, #EDE8DF 0%, transparent 70%)`,
-        }}
+        className={`home-narrative__bg ${isEven ? 'home-narrative__bg--right' : 'home-narrative__bg--left'}`}
         aria-hidden="true"
       />
 

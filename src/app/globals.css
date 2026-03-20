@@ -57,6 +57,16 @@
   --color-inverse-surface: #1a1814;
   --color-inverse-on-surface: #faf8f5;
   --color-inverse-primary: #d4b978;
+
+  /* Gradient Colors */
+  --color-gradient-start: rgba(237, 232, 223, 0.35);
+  --color-gradient-end: transparent;
+  --color-gradient-accent: rgba(201, 169, 110, 0.6);
+  --color-gradient-overlay: rgba(26, 24, 20, 0.1);
+
+  /* Navbar Colors */
+  --color-navbar-bg: rgba(250, 248, 245, 0.95);
+  --color-navbar-border: rgba(237, 232, 223, 0.5);
   
   /* Legacy Color Names (for backward compatibility) */
   --color-cream: var(--color-background);
@@ -124,6 +134,16 @@
   --color-inverse-surface: #f5f2ed;
   --color-inverse-on-surface: #2d2a26;
   --color-inverse-primary: #c9a96e;
+
+  /* Gradient Colors - dark theme uses very subtle gradients */
+  --color-gradient-start: rgba(212, 185, 120, 0.08);
+  --color-gradient-end: transparent;
+  --color-gradient-accent: rgba(212, 185, 120, 0.5);
+  --color-gradient-overlay: rgba(245, 242, 237, 0.02);
+
+  /* Navbar Colors */
+  --color-navbar-bg: rgba(15, 13, 12, 0.95);
+  --color-navbar-border: rgba(45, 42, 38, 0.5);
   
   /* Legacy Color Names (for backward compatibility) */
   --color-cream: var(--color-background);
@@ -464,10 +484,10 @@ a:hover {
 }
 
 .navbar-scrolled {
-  background: rgba(250, 248, 245, 0.95);
+  background: var(--color-navbar-bg);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(237, 232, 223, 0.5);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--color-navbar-border);
+  box-shadow: 0 1px 3px var(--color-shadow);
 }
 
 /* Product Card */

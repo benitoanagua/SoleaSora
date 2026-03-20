@@ -122,10 +122,6 @@ export default function HomeHero({
       <div
         ref={bgRef}
         className="home-hero__bg"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 50% at 50% 40%, #EDE8DF 0%, transparent 70%)",
-        }}
         aria-hidden="true"
       />
 

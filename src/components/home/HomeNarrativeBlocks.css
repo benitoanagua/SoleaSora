@@ -21,6 +21,15 @@
   position: absolute;
   inset: 0;
   opacity: 0.3;
+  background: radial-gradient(ellipse 60% 40% at 80% 50%, var(--color-gradient-start) 0%, var(--color-gradient-end) 70%);
+}
+
+.home-narrative__bg--right {
+  background: radial-gradient(ellipse 60% 40% at 80% 50%, var(--color-gradient-start) 0%, var(--color-gradient-end) 70%);
+}
+
+.home-narrative__bg--left {
+  background: radial-gradient(ellipse 60% 40% at 20% 50%, var(--color-gradient-start) 0%, var(--color-gradient-end) 70%);
 }
 
 /* Container */
@@ -169,7 +178,7 @@
 .home-narrative__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(26, 24, 20, 0.1), transparent);
+  background: linear-gradient(to top, var(--color-gradient-overlay), transparent);
   pointer-events: none;
 }
 

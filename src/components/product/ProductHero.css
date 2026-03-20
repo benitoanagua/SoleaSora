@@ -541,7 +541,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(250, 248, 245, 0.95);
+  background-color: var(--color-navbar-bg);
   backdrop-filter: blur(10px);
   border-top: 1px solid var(--color-sand);
   padding: 1rem 1.25rem;

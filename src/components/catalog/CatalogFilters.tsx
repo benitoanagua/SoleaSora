@@ -188,7 +188,7 @@ export default function CatalogFilters({
       )}
     >
       <div className="catalog-filters__header">
-        <Filter size={16} strokeWidth={1.5} className="text-[#6B6560]" />
+        <Filter size={16} strokeWidth={1.5} className="text-[var(--color-secondary)]" />
         <h2 className="catalog-filters__title">
           Filtros
         </h2>
